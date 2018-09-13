@@ -30,7 +30,7 @@ public class BibliotecaServiceTest {
     public void printMainMenuOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         String mainMenuMessage = bibliotecaService.getMainMenuMessage();
-        assertThat(mainMenuMessage).isEqualTo("1 - List books");
+        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Quit\n");
     }
 
     @Test
@@ -41,14 +41,20 @@ public class BibliotecaServiceTest {
         String bookList = bibliotecaService.selectMenuOption("1");
         assertThat(bookList).isEqualTo(String.format("%-45s %-30s %-4s\n", "The Hobbit", "J.R.R Tolkien", 1937)
                 + String.format("%-45s %-30s %-4s\n","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+    }
 
+    @Test
+    public void selectMenuOptionQuitOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
+        String invalidOption = bibliotecaService.selectMenuOption("2");
+        assertThat(invalidOption).isEqualTo("Quit");
     }
 
     @Test
     public void selectMenuOptionNotOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         String invalidOption = bibliotecaService.selectMenuOption("a");
-        assertThat(invalidOption).isEqualTo("Select a valid option!");
+        assertThat(invalidOption).isEqualTo("Select a valid option!\n");
     }
 
     private List<Book> getBooksList() {

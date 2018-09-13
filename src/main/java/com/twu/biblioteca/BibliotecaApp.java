@@ -14,11 +14,18 @@ public class BibliotecaApp {
         BookRepository bookRepository = new BookRepository();
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         System.out.println(bibliotecaService.getWelcomeMessage());
-        System.out.println("Menu");
-        System.out.println(bibliotecaService.getMainMenuMessage());
-        System.out.print("Select an option: ");
-        String option = bufferedReader.readLine();
-        System.out.println("\n" + bibliotecaService.selectMenuOption(option));
+        String menuOptionResult = "";
+        while(!menuOptionResult.equals("Quit")) {
+            System.out.println("Menu");
+            System.out.println(bibliotecaService.getMainMenuMessage());
+            System.out.print("Select an option: ");
+            String option = bufferedReader.readLine();
+            menuOptionResult = bibliotecaService.selectMenuOption(option);
+            if(!menuOptionResult.equals("Quit")) {
+                System.out.println(menuOptionResult);
+            }
+
+        }
     }
 
 }

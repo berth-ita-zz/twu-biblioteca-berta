@@ -18,7 +18,7 @@ public class BibliotecaService {
     }
 
     public String getMainMenuMessage() {
-        return "1 - List books";
+        return "1 - List books\n2 - Quit\n";
     }
 
     public String selectMenuOption(String option) {
@@ -26,8 +26,10 @@ public class BibliotecaService {
             case "1":
                 String bookList = getBooksList();
                 return bookList;
+            case "2":
+                return "Quit";
             default:
-                return "Select a valid option!";
+                return "Select a valid option!\n";
         }
     }
 
