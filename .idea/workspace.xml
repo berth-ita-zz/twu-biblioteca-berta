@@ -597,7 +597,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536851678205" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536851865460" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -658,6 +658,11 @@
       <updated>1536692520774</updated>
     </task>
     <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="BibliotecaServiceTest_printWelcomeMessageOkTest - 2018.09.13 at 17h 11m 05s.xml">
+      <configuration name="BibliotecaServiceTest.printWelcomeMessageOkTest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1027" extended-state="1" />
