@@ -29,4 +29,7 @@ public class BookRepository {
         return book;
     }
 
+    public void deleteBookFromList(String bookNumber) {
+        bookList.remove(Integer.parseInt(bookNumber) - 1);
+    }
 }

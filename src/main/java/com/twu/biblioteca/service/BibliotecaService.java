@@ -18,30 +18,33 @@ public class BibliotecaService {
     }
 
     public String getMainMenuMessage() {
-        return "1 - List books\n2 - Quit\n";
+        return "1 - List books\n2 - Check out book\n3 - Quit\n";
     }
 
-    public String selectMenuOption(String option) {
-        switch (option) {
-            case "1":
-                String bookList = getBooksList();
-                return bookList;
-            case "2":
-                return "Quit";
-            default:
-                return "Select a valid option!\n";
-        }
-    }
-
-    private String getBooksList() {
+    public String getBooksList() {
         List<Book> bookList = bookRepository.getBookList();
         String bookListToPrint = "";
         for (Book book: bookList) {
-            bookListToPrint = bookListToPrint.concat(String.format("%-45s %-30s %-4s\n", book.getTitle(), book.getAuthor(), book.getYearPublished().toString()));
+            bookListToPrint = bookListToPrint.concat(String.format("%-45s %-30s %-4s\n", book.getTitle(), book.getAuthor(),
+                    book.getYearPublished().toString()));
         }
 
         return bookListToPrint;
     }
 
+    public String printBooksList() {
+        List<Book> bookList = bookRepository.getBookList();
+        String bookListToPrint = "";
+        for (int i = 0; i < bookList.size(); i++) {
+            bookListToPrint = bookListToPrint.concat(String.format("%-2s. %-45s %-30s %-4s\n", i + 1, bookList.get(i).getTitle(),
+                    bookList.get(i).getAuthor(), bookList.get(i).getYearPublished().toString()));
+        }
+
+        return bookListToPrint;
+    }
+
+    public void checkOutBook(String bookNumber) {
+        bookRepository.deleteBookFromList(bookNumber);
+    }
 
 }

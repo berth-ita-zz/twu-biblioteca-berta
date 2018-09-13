@@ -30,31 +30,34 @@ public class BibliotecaServiceTest {
     public void printMainMenuOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         String mainMenuMessage = bibliotecaService.getMainMenuMessage();
-        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Quit\n");
+        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Quit\n");
     }
 
     @Test
-    public void selectMenuOptionOkTest() {
+    public void selectMenuOptionListBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
-        String bookList = bibliotecaService.selectMenuOption("1");
+        String bookList = bibliotecaService.getBooksList();
         assertThat(bookList).isEqualTo(String.format("%-45s %-30s %-4s\n", "The Hobbit", "J.R.R Tolkien", 1937)
                 + String.format("%-45s %-30s %-4s\n","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     @Test
-    public void selectMenuOptionQuitOkTest() {
+    public void selectMenuOptionCheckOutBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
-        String invalidOption = bibliotecaService.selectMenuOption("2");
-        assertThat(invalidOption).isEqualTo("Quit");
+        List<Book> bookListMocked = getBooksList();
+        Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
+        String bookList = bibliotecaService.printBooksList();
+        assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-30s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
+                + String.format("%-2s. %-45s %-30s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     @Test
-    public void selectMenuOptionNotOkTest() {
+    public void checkOutBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
-        String invalidOption = bibliotecaService.selectMenuOption("a");
-        assertThat(invalidOption).isEqualTo("Select a valid option!\n");
+        bibliotecaService.checkOutBook("2");
+        Mockito.verify(bookRepository).deleteBookFromList("2");
     }
 
     private List<Book> getBooksList() {
