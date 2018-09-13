@@ -17,7 +17,20 @@ public class BibliotecaService {
         return "Welcome to La Biblioteca!";
     }
 
-    public String getBooksList() {
+    public String getMainMenuMessage() {
+        return "1 - List books";
+    }
+
+    public String selectMenuOption(int option) {
+        switch (option) {
+            case 1:
+                String bookList = getBooksList();
+                return bookList;
+        }
+        return null;
+    }
+
+    private String getBooksList() {
         List<Book> bookList = bookRepository.getBookList();
         String bookListToPrint = "";
         for (Book book: bookList) {
@@ -26,4 +39,6 @@ public class BibliotecaService {
 
         return bookListToPrint;
     }
+
+
 }
