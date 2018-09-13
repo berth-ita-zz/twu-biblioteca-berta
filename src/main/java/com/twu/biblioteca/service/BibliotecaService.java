@@ -21,7 +21,7 @@ public class BibliotecaService {
         List<Book> bookList = bookRepository.getBookList();
         String bookListToPrint = "";
         for (Book book: bookList) {
-            bookListToPrint = bookListToPrint.concat(book.getTitle() + "\n");
+            bookListToPrint = bookListToPrint.concat(String.format("%-45s %-30s %-4s\n", book.getTitle(), book.getAuthor(), book.getYearPublished().toString()));
         }
 
         return bookListToPrint;

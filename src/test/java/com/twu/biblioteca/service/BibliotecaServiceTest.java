@@ -32,19 +32,22 @@ public class BibliotecaServiceTest {
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
         String bookList = bibliotecaService.getBooksList();
-        assertThat(bookList).isEqualTo("The Hobbit\nThe Hitchhiker's Guide to the Galaxy\n");
+        assertThat(bookList).isEqualTo(String.format("%-45s %-30s %-4s\n", "The Hobbit", "J.R.R Tolkien", 1937)
+                + String.format("%-45s %-30s %-4s\n","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     private List<Book> getBooksList() {
         List<Book> bookListMocked = new ArrayList<>();
-        bookListMocked.add(getBook("The Hobbit"));
-        bookListMocked.add(getBook("The Hitchhiker's Guide to the Galaxy"));
+        bookListMocked.add(getBook("The Hobbit", "J.R.R Tolkien", 1937));
+        bookListMocked.add(getBook("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
         return bookListMocked;
     }
 
-    private Book getBook(String title) {
+    private Book getBook(String title, String author, Integer yearPublished) {
         Book book = new Book();
         book.setTitle(title);
+        book.setAuthor(author);
+        book.setYearPublished(yearPublished);
         return book;
     }
 }
