@@ -17,7 +17,7 @@ public class BibliotecaApp {
         System.out.println("Menu");
         System.out.println(bibliotecaService.getMainMenuMessage());
         System.out.print("Select an option: ");
-        int option = Integer.valueOf(bufferedReader.readLine());
+        String option = bufferedReader.readLine();
         System.out.println("\n" + bibliotecaService.selectMenuOption(option));
     }
 

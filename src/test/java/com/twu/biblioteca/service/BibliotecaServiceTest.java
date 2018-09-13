@@ -38,10 +38,17 @@ public class BibliotecaServiceTest {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
-        String bookList = bibliotecaService.selectMenuOption(1);
+        String bookList = bibliotecaService.selectMenuOption("1");
         assertThat(bookList).isEqualTo(String.format("%-45s %-30s %-4s\n", "The Hobbit", "J.R.R Tolkien", 1937)
                 + String.format("%-45s %-30s %-4s\n","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
 
+    }
+
+    @Test
+    public void selectMenuOptionNotOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
+        String invalidOption = bibliotecaService.selectMenuOption("a");
+        assertThat(invalidOption).isEqualTo("Select a valid option!");
     }
 
     private List<Book> getBooksList() {

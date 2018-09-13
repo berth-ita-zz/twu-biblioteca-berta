@@ -21,13 +21,14 @@ public class BibliotecaService {
         return "1 - List books";
     }
 
-    public String selectMenuOption(int option) {
+    public String selectMenuOption(String option) {
         switch (option) {
-            case 1:
+            case "1":
                 String bookList = getBooksList();
                 return bookList;
+            default:
+                return "Select a valid option!";
         }
-        return null;
     }
 
     private String getBooksList() {
