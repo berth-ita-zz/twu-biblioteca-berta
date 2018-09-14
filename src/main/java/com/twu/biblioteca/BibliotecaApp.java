@@ -41,7 +41,7 @@ public class BibliotecaApp {
                 while(!validCheckOutBook) {
                     System.out.print("Select an option: ");
                     String bookToCheckOut = bufferedReader.readLine();
-                    String bookCheckOutResult = bibliotecaService.checkOutBook(bookToCheckOut);
+                    String bookCheckOutResult = bibliotecaService.operationBook(bookToCheckOut, option);
                     if (!bookCheckOutResult.equals("That book is not available")) {
                         return bookCheckOutResult;
                     }
@@ -54,8 +54,8 @@ public class BibliotecaApp {
                 Boolean validReturnBook = false;
                 while(!validReturnBook) {
                     System.out.print("Select an option: ");
-                    String bookToCheckOut = bufferedReader.readLine();
-                    String bookReturnResult = bibliotecaService.returnBook(bookToCheckOut);
+                    String bookToReturn= bufferedReader.readLine();
+                    String bookReturnResult = bibliotecaService.operationBook(bookToReturn, option);
                     if (!bookReturnResult.equals("This is not a valid book to return")) {
                         return bookReturnResult;
                     }

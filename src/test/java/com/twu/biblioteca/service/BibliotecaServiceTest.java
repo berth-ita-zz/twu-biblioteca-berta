@@ -57,7 +57,7 @@ public class BibliotecaServiceTest {
     public void checkOutBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         Mockito.when(bookRepository.deleteBookFromList("2")).thenReturn(true);
-        String bookRemoved = bibliotecaService.checkOutBook("2");
+        String bookRemoved = bibliotecaService.operationBook("2", "2");
         Mockito.verify(bookRepository).deleteBookFromList("2");
         assertThat(bookRemoved).isEqualTo("Thank you! Enjoy the book");
     }
@@ -66,7 +66,7 @@ public class BibliotecaServiceTest {
     public void checkOutBookNotOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         Mockito.when(bookRepository.deleteBookFromList("25")).thenReturn(false);
-        String bookRemoved = bibliotecaService.checkOutBook("25");
+        String bookRemoved = bibliotecaService.operationBook("25", "2");
         Mockito.verify(bookRepository).deleteBookFromList("25");
         assertThat(bookRemoved).isEqualTo("That book is not available");
     }
@@ -85,7 +85,7 @@ public class BibliotecaServiceTest {
     public void returnBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         Mockito.when(bookRepository.returnBookFromList("1")).thenReturn(true);
-        String bookReturned = bibliotecaService.returnBook("1");
+        String bookReturned = bibliotecaService.operationBook("1", "3");
         Mockito.verify(bookRepository).returnBookFromList("1");
         assertThat(bookReturned).isEqualTo("Thank you for returning the book");
     }
@@ -94,7 +94,7 @@ public class BibliotecaServiceTest {
     public void returnBookNotOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         Mockito.when(bookRepository.returnBookFromList("15")).thenReturn(false);
-        String bookReturned = bibliotecaService.returnBook("15");
+        String bookReturned = bibliotecaService.operationBook("15", "3");
         Mockito.verify(bookRepository).returnBookFromList("15");
         assertThat(bookReturned).isEqualTo("This is not a valid book to return");
     }

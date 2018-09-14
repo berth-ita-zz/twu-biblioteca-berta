@@ -8,6 +8,8 @@ import java.util.List;
 
 public class BibliotecaService {
 
+    private static final String CHECK_OUT_OPTION = "2";
+    private static final String RETURN_OPTION = "3";
     private BookRepository bookRepository;
 
     public BibliotecaService(BookRepository bookRepository) {
@@ -34,10 +36,10 @@ public class BibliotecaService {
 
     public String printBooksList(String option) {
         List<Book> bookList = new ArrayList<>();
-        if (option.equals("2")) {
+        if (option.equals(CHECK_OUT_OPTION)) {
             bookList = bookRepository.getBookList();
         }
-        if (option.equals("3")) {
+        if (option.equals(RETURN_OPTION)) {
             bookList = bookRepository.getReturnBookList();
         }
         String bookListToPrint = "";
@@ -48,17 +50,17 @@ public class BibliotecaService {
         return bookListToPrint;
     }
 
-    public String checkOutBook(String bookNumber) {
-        if(bookRepository.deleteBookFromList(bookNumber)) {
-            return "Thank you! Enjoy the book";
+    public String operationBook(String bookNumber, String option) {
+        if(option.equals(CHECK_OUT_OPTION)) {
+            if (bookRepository.deleteBookFromList(bookNumber)) {
+                return "Thank you! Enjoy the book";
+            }
+            return "That book is not available";
         }
-        return "That book is not available";
-    }
-
-    public String returnBook(String bookNumber) {
         if(bookRepository.returnBookFromList(bookNumber)) {
             return "Thank you for returning the book";
         }
         return "This is not a valid book to return";
     }
+
 }
