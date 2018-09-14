@@ -85,8 +85,9 @@ public class BibliotecaServiceTest {
     public void returnBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         Mockito.when(bookRepository.returnBookFromList("1")).thenReturn(true);
-        bibliotecaService.returnBook("1");
+        String bookReturned = bibliotecaService.returnBook("1");
         Mockito.verify(bookRepository).returnBookFromList("1");
+        assertThat(bookReturned).isEqualTo("Thank you for returning the book");
     }
 
     private List<Book> getBooksList() {

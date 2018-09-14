@@ -74,8 +74,12 @@ public class BibliotecaAppTest {
     public void selectMenuOptionReturnBookOkTest() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
+        Mockito.when(bufferedReader.readLine()).thenReturn("1");
+        Mockito.when(bibliotecaService.returnBook("1")).thenReturn("Thank you for returning the book");
         BibliotecaApp.selectMenuOption("3");
+        String bookReturnResult = bibliotecaService.returnBook("1");
         Mockito.verify(bibliotecaService).printBooksList("3");
+        assertThat(bookReturnResult).isEqualTo("Thank you for returning the book");
     }
 
 }

@@ -58,7 +58,9 @@ public class BibliotecaService {
     }
 
     public String returnBook(String bookNumber) {
-        bookRepository.returnBookFromList(bookNumber);
+        if(bookRepository.returnBookFromList(bookNumber)) {
+            return "Thank you for returning the book";
+        }
         return "";
     }
 }
