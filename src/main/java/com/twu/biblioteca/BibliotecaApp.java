@@ -37,8 +37,8 @@ public class BibliotecaApp {
             case "2":
                 System.out.println("Books available:");
                 System.out.println(bibliotecaService.printBooksList("2"));
-                Boolean validBook = false;
-                while(!validBook) {
+                Boolean validCheckOutBook = false;
+                while(!validCheckOutBook) {
                     System.out.print("Select an option: ");
                     String bookToCheckOut = bufferedReader.readLine();
                     String bookCheckOutResult = bibliotecaService.checkOutBook(bookToCheckOut);
@@ -46,14 +46,22 @@ public class BibliotecaApp {
                         return bookCheckOutResult;
                     }
                     System.out.println(bookCheckOutResult);
-                    validBook = false;
+                    validCheckOutBook = false;
                 }
             case "3":
                 System.out.println("Which book do you want to return? ");
                 System.out.println(bibliotecaService.printBooksList("3"));
-                System.out.print("Select an option: ");
-                String bookToReturn = bufferedReader.readLine();
-                return bibliotecaService.returnBook(bookToReturn);
+                Boolean validReturnBook = false;
+                while(!validReturnBook) {
+                    System.out.print("Select an option: ");
+                    String bookToCheckOut = bufferedReader.readLine();
+                    String bookReturnResult = bibliotecaService.returnBook(bookToCheckOut);
+                    if (!bookReturnResult.equals("This is not a valid book to return")) {
+                        return bookReturnResult;
+                    }
+                    System.out.println(bookReturnResult);
+                    validReturnBook = false;
+                }
             case "4":
                 return "Quit";
             default:

@@ -82,4 +82,18 @@ public class BibliotecaAppTest {
         assertThat(bookReturnResult).isEqualTo("Thank you for returning the book");
     }
 
+    @Test
+    public void selectMenuOptionReturnBookNotOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        Mockito.when(bufferedReader.readLine()).thenReturn("7").thenReturn("1");
+        Mockito.when(bibliotecaService.returnBook("7")).thenReturn("This is not a valid book to return");
+        Mockito.when(bibliotecaService.returnBook("1")).thenReturn("Thank you for returning the book");
+        BibliotecaApp.selectMenuOption("3");
+        bibliotecaService.returnBook("7");
+        String bookCheckOutResult = bibliotecaService.returnBook("1");
+        Mockito.verify(bibliotecaService).printBooksList("3");
+        assertThat(bookCheckOutResult).isEqualTo("Thank you for returning the book");
+    }
+
 }

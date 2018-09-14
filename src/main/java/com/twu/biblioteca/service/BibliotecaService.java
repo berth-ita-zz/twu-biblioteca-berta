@@ -61,6 +61,6 @@ public class BibliotecaService {
         if(bookRepository.returnBookFromList(bookNumber)) {
             return "Thank you for returning the book";
         }
-        return "";
+        return "This is not a valid book to return";
     }
 }

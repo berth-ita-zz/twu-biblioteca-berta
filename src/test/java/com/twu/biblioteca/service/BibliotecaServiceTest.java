@@ -90,6 +90,15 @@ public class BibliotecaServiceTest {
         assertThat(bookReturned).isEqualTo("Thank you for returning the book");
     }
 
+    @Test
+    public void returnBookNotOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
+        Mockito.when(bookRepository.returnBookFromList("15")).thenReturn(false);
+        String bookReturned = bibliotecaService.returnBook("15");
+        Mockito.verify(bookRepository).returnBookFromList("15");
+        assertThat(bookReturned).isEqualTo("This is not a valid book to return");
+    }
+
     private List<Book> getBooksList() {
         List<Book> bookListMocked = new ArrayList<>();
         bookListMocked.add(getBook("The Hobbit", "J.R.R Tolkien", 1937));
