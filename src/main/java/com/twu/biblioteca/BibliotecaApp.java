@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 
 public class BibliotecaApp {
 
+    public static final String INVALID_CHECKOUT_RESPONSE = "That book is not available";
+    public static final String INVALID_RETURN_RESPONSE = "This is not a valid book to return";
     static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     static BibliotecaService bibliotecaService;
 
@@ -36,13 +38,13 @@ public class BibliotecaApp {
                 return bookList;
             case "2":
                 System.out.println("Books available:");
-                System.out.println(bibliotecaService.printBooksList("2"));
+                System.out.println(bibliotecaService.printBooksList(option));
                 Boolean validCheckOutBook = false;
                 while(!validCheckOutBook) {
                     System.out.print("Select an option: ");
                     String bookToCheckOut = bufferedReader.readLine();
                     String bookCheckOutResult = bibliotecaService.operationBook(bookToCheckOut, option);
-                    if (!bookCheckOutResult.equals("That book is not available")) {
+                    if (!bookCheckOutResult.equals(INVALID_CHECKOUT_RESPONSE)) {
                         return bookCheckOutResult;
                     }
                     System.out.println(bookCheckOutResult);
@@ -50,13 +52,13 @@ public class BibliotecaApp {
                 }
             case "3":
                 System.out.println("Which book do you want to return? ");
-                System.out.println(bibliotecaService.printBooksList("3"));
+                System.out.println(bibliotecaService.printBooksList(option));
                 Boolean validReturnBook = false;
                 while(!validReturnBook) {
                     System.out.print("Select an option: ");
                     String bookToReturn= bufferedReader.readLine();
                     String bookReturnResult = bibliotecaService.operationBook(bookToReturn, option);
-                    if (!bookReturnResult.equals("This is not a valid book to return")) {
+                    if (!bookReturnResult.equals(INVALID_RETURN_RESPONSE)) {
                         return bookReturnResult;
                     }
                     System.out.println(bookReturnResult);
