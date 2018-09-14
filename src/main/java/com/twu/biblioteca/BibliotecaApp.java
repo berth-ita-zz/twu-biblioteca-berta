@@ -18,7 +18,7 @@ public class BibliotecaApp {
         System.out.println(bibliotecaService.getWelcomeMessage());
         String menuOptionResult = "";
         while(!menuOptionResult.equals("Quit")) {
-            System.out.println("Menu");
+            System.out.println("\nMenu");
             System.out.println(bibliotecaService.getMainMenuMessage());
             System.out.print("Select an option: ");
             String option = bufferedReader.readLine();
@@ -38,8 +38,7 @@ public class BibliotecaApp {
                 System.out.println(bibliotecaService.printBooksList());
                 System.out.print("Select an option: ");
                 String bookToCheckOut = bufferedReader.readLine();
-                bibliotecaService.checkOutBook(bookToCheckOut);
-                return "";
+                return bibliotecaService.checkOutBook(bookToCheckOut);
             case "3":
                 return "Quit";
             default:

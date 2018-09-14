@@ -43,8 +43,11 @@ public class BibliotecaService {
         return bookListToPrint;
     }
 
-    public void checkOutBook(String bookNumber) {
-        bookRepository.deleteBookFromList(bookNumber);
+    public String checkOutBook(String bookNumber) {
+        if(bookRepository.deleteBookFromList(bookNumber)) {
+            return "Thank you! Enjoy the book";
+        }
+        return "";
     }
 
 }

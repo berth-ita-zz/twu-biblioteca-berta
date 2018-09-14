@@ -15,11 +15,19 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void deleteBookFromListOkTest() {
+    public void deleteBookFromListListSizeOkTest() {
         BookRepository bookRepository = new BookRepository();
         List<Book> bookList = bookRepository.getBookList();
         bookRepository.deleteBookFromList("2");
         assertThat(bookList).hasSize(4);
+    }
+
+    @Test
+    public void deleteBookFromListOkTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        Boolean bookRemoved = bookRepository.deleteBookFromList("2");
+        assertThat(bookRemoved).isTrue();
     }
 
 }

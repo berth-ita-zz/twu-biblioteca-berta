@@ -56,8 +56,10 @@ public class BibliotecaServiceTest {
     @Test
     public void checkOutBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
-        bibliotecaService.checkOutBook("2");
+        Mockito.when(bookRepository.deleteBookFromList("2")).thenReturn(true);
+        String bookRemoved = bibliotecaService.checkOutBook("2");
         Mockito.verify(bookRepository).deleteBookFromList("2");
+        assertThat(bookRemoved).isEqualTo("Thank you! Enjoy the book");
     }
 
     private List<Book> getBooksList() {
