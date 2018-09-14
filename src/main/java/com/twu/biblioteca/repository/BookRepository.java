@@ -30,10 +30,18 @@ public class BookRepository {
     }
 
     public Boolean deleteBookFromList(String bookNumber) {
-        if(Integer.parseInt(bookNumber) -1 <= bookList.size()) {
-            bookList.remove(Integer.parseInt(bookNumber) - 1);
-            return true;
+        if((!bookNumberIsNumeric(bookNumber))) {
+            return false;
         }
-        return false;
+        if((Integer.parseInt(bookNumber) <= 0) || (Integer.parseInt(bookNumber) > bookList.size())) {
+            return false;
+        }
+        bookList.remove(Integer.parseInt(bookNumber) - 1);
+        return true;
+    }
+
+    private static boolean bookNumberIsNumeric(String bookNumber)
+    {
+        return bookNumber.matches("-?\\d+(\\.\\d+)?");
     }
 }

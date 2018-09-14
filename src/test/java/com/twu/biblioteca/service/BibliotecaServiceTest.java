@@ -62,6 +62,15 @@ public class BibliotecaServiceTest {
         assertThat(bookRemoved).isEqualTo("Thank you! Enjoy the book");
     }
 
+    @Test
+    public void checkOutBookNotOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
+        Mockito.when(bookRepository.deleteBookFromList("25")).thenReturn(false);
+        String bookRemoved = bibliotecaService.checkOutBook("25");
+        Mockito.verify(bookRepository).deleteBookFromList("25");
+        assertThat(bookRemoved).isEqualTo("That book is not available");
+    }
+
     private List<Book> getBooksList() {
         List<Book> bookListMocked = new ArrayList<>();
         bookListMocked.add(getBook("The Hobbit", "J.R.R Tolkien", 1937));

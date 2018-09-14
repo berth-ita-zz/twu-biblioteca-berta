@@ -30,4 +30,44 @@ public class BookRepositoryTest {
         assertThat(bookRemoved).isTrue();
     }
 
+    @Test
+    public void deleteBookFromListNotCorrectNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        Boolean bookRemoved = bookRepository.deleteBookFromList("25");
+        assertThat(bookRemoved).isFalse();
+    }
+
+    @Test
+    public void deleteBookFromListNotNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        Boolean bookRemoved = bookRepository.deleteBookFromList("a");
+        assertThat(bookRemoved).isFalse();
+    }
+
+    @Test
+    public void deleteBookFromListLimitNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        Boolean bookRemoved = bookRepository.deleteBookFromList("6");
+        assertThat(bookRemoved).isFalse();
+    }
+
+    @Test
+    public void deleteBookFromListZeroNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        Boolean bookRemoved = bookRepository.deleteBookFromList("0");
+        assertThat(bookRemoved).isFalse();
+    }
+
+    @Test
+    public void deleteBookFromListNegativeNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        Boolean bookRemoved = bookRepository.deleteBookFromList("-5");
+        assertThat(bookRemoved).isFalse();
+    }
+
 }

@@ -35,10 +35,19 @@ public class BibliotecaApp {
                 String bookList = bibliotecaService.getBooksList();
                 return bookList;
             case "2":
+                System.out.println("Books available:");
                 System.out.println(bibliotecaService.printBooksList());
-                System.out.print("Select an option: ");
-                String bookToCheckOut = bufferedReader.readLine();
-                return bibliotecaService.checkOutBook(bookToCheckOut);
+                Boolean validBook = false;
+                while(!validBook) {
+                    System.out.print("Select an option: ");
+                    String bookToCheckOut = bufferedReader.readLine();
+                    String bookCheckOutResult = bibliotecaService.checkOutBook(bookToCheckOut);
+                    if (!bookCheckOutResult.equals("That book is not available")) {
+                        return bookCheckOutResult;
+                    }
+                    System.out.println(bookCheckOutResult);
+                    validBook = false;
+                }
             case "3":
                 return "Quit";
             default:

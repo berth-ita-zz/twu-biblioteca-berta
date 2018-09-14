@@ -49,9 +49,25 @@ public class BibliotecaAppTest {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         Mockito.when(bufferedReader.readLine()).thenReturn("1");
+        Mockito.when(bibliotecaService.checkOutBook("1")).thenReturn("Thank you! Enjoy the book");
         BibliotecaApp.selectMenuOption("2");
+        String bookCheckOutResult = bibliotecaService.checkOutBook("1");
         Mockito.verify(bibliotecaService).printBooksList();
-        Mockito.verify(bibliotecaService).checkOutBook("1");
+        assertThat(bookCheckOutResult).isEqualTo("Thank you! Enjoy the book");
+    }
+
+    @Test
+    public void selectMenuOptionCheckOutBookNotOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        Mockito.when(bufferedReader.readLine()).thenReturn("7").thenReturn("1");
+        Mockito.when(bibliotecaService.checkOutBook("7")).thenReturn("That book is not available");
+        Mockito.when(bibliotecaService.checkOutBook("1")).thenReturn("Thank you! Enjoy the book");
+        BibliotecaApp.selectMenuOption("2");
+        bibliotecaService.checkOutBook("7");
+        String bookCheckOutResult = bibliotecaService.checkOutBook("1");
+        Mockito.verify(bibliotecaService).printBooksList();
+        assertThat(bookCheckOutResult).isEqualTo("Thank you! Enjoy the book");
     }
 
 }
