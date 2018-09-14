@@ -14,4 +14,12 @@ public class BookRepositoryTest {
         assertThat(bookList).hasSize(5);
     }
 
+    @Test
+    public void deleteBookFromListOkTest() {
+        BookRepository bookRepository = new BookRepository();
+        List<Book> bookList = bookRepository.getBookList();
+        bookRepository.deleteBookFromList("2");
+        assertThat(bookList).hasSize(4);
+    }
+
 }

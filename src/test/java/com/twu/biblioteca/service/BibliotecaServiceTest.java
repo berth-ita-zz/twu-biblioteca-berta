@@ -39,8 +39,8 @@ public class BibliotecaServiceTest {
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
         String bookList = bibliotecaService.getBooksList();
-        assertThat(bookList).isEqualTo(String.format("%-45s %-30s %-4s\n", "The Hobbit", "J.R.R Tolkien", 1937)
-                + String.format("%-45s %-30s %-4s\n","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+        assertThat(bookList).isEqualTo(String.format("%-45s %-20s %-4s\n", "The Hobbit", "J.R.R Tolkien", 1937)
+                + String.format("%-45s %-20s %-4s\n","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     @Test
@@ -49,8 +49,8 @@ public class BibliotecaServiceTest {
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
         String bookList = bibliotecaService.printBooksList();
-        assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-30s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
-                + String.format("%-2s. %-45s %-30s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+        assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-20s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
+                + String.format("%-2s. %-45s %-20s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     @Test

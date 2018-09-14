@@ -25,7 +25,7 @@ public class BibliotecaService {
         List<Book> bookList = bookRepository.getBookList();
         String bookListToPrint = "";
         for (Book book: bookList) {
-            bookListToPrint = bookListToPrint.concat(String.format("%-45s %-30s %-4s\n", book.getTitle(), book.getAuthor(),
+            bookListToPrint = bookListToPrint.concat(String.format("%-45s %-20s %-4s\n", book.getTitle(), book.getAuthor(),
                     book.getYearPublished().toString()));
         }
 
@@ -36,7 +36,7 @@ public class BibliotecaService {
         List<Book> bookList = bookRepository.getBookList();
         String bookListToPrint = "";
         for (int i = 0; i < bookList.size(); i++) {
-            bookListToPrint = bookListToPrint.concat(String.format("%-2s. %-45s %-30s %-4s\n", i + 1, bookList.get(i).getTitle(),
+            bookListToPrint = bookListToPrint.concat(String.format("%-2s. %-45s %-20s %-4s\n", i + 1, bookList.get(i).getTitle(),
                     bookList.get(i).getAuthor(), bookList.get(i).getYearPublished().toString()));
         }
 

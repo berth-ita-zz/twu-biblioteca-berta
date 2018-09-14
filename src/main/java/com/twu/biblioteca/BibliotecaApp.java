@@ -26,7 +26,6 @@ public class BibliotecaApp {
             if(!menuOptionResult.equals("Quit")) {
                 System.out.println(menuOptionResult);
             }
-
         }
     }
 
