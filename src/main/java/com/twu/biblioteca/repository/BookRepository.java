@@ -35,33 +35,27 @@ public class BookRepository {
     }
 
     public Boolean deleteBookFromList(String bookNumber) {
-        if (checkBookNumberIsNumeric(bookNumber)) return false;
-        if (checkBookNumberIsOnList(bookNumber, bookList)) return false;
-        returnBookList.add(bookList.get(Integer.parseInt(bookNumber) - 1));
-        bookList.remove(Integer.parseInt(bookNumber) - 1);
-        return true;
+        return getListOperationResult(bookNumber, bookList, returnBookList);
     }
 
     public Boolean returnBookFromList(String bookNumber) {
+        return getListOperationResult(bookNumber, returnBookList, bookList);
+    }
+
+    private Boolean getListOperationResult(String bookNumber, List<Book> listToDelete, List<Book> listToAdd) {
         if (checkBookNumberIsNumeric(bookNumber)) return false;
-        if (checkBookNumberIsOnList(bookNumber, returnBookList)) return false;
-        bookList.add(returnBookList.get(Integer.parseInt(bookNumber) - 1));
-        returnBookList.remove(Integer.parseInt(bookNumber) - 1);
+        if (checkBookNumberIsOnList(bookNumber, listToDelete)) return false;
+        listToAdd.add(listToDelete.get(Integer.parseInt(bookNumber) - 1));
+        listToDelete.remove(Integer.parseInt(bookNumber) - 1);
         return true;
     }
 
     private boolean checkBookNumberIsOnList(String bookNumber, List<Book> bookList) {
-        if ((Integer.parseInt(bookNumber) <= 0) || (Integer.parseInt(bookNumber) > bookList.size())) {
-            return true;
-        }
-        return false;
+        return (Integer.parseInt(bookNumber) <= 0) || (Integer.parseInt(bookNumber) > bookList.size());
     }
 
     private boolean checkBookNumberIsNumeric(String bookNumber) {
-        if ((!bookNumberIsNumeric(bookNumber))) {
-            return true;
-        }
-        return false;
+        return (!bookNumberIsNumeric(bookNumber));
     }
 
     private static boolean bookNumberIsNumeric(String bookNumber) {

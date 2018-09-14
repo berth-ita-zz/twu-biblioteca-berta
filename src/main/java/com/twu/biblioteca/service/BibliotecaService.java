@@ -29,7 +29,6 @@ public class BibliotecaService {
             bookListToPrint = bookListToPrint.concat(String.format("%-45s %-20s %-4s\n", book.getTitle(), book.getAuthor(),
                     book.getYearPublished().toString()));
         }
-
         return bookListToPrint;
     }
 
@@ -46,7 +45,6 @@ public class BibliotecaService {
             bookListToPrint = bookListToPrint.concat(String.format("%-2s. %-45s %-20s %-4s\n", i + 1, bookList.get(i).getTitle(),
                     bookList.get(i).getAuthor(), bookList.get(i).getYearPublished().toString()));
         }
-
         return bookListToPrint;
     }
 
