@@ -30,7 +30,7 @@ public class BibliotecaServiceTest {
     public void printMainMenuOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         String mainMenuMessage = bibliotecaService.getMainMenuMessage();
-        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Quit\n");
+        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - Quit\n");
     }
 
     @Test
@@ -48,7 +48,7 @@ public class BibliotecaServiceTest {
         BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
-        String bookList = bibliotecaService.printBooksList();
+        String bookList = bibliotecaService.printBooksList("2");
         assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-20s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
                 + String.format("%-2s. %-45s %-20s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
@@ -69,6 +69,24 @@ public class BibliotecaServiceTest {
         String bookRemoved = bibliotecaService.checkOutBook("25");
         Mockito.verify(bookRepository).deleteBookFromList("25");
         assertThat(bookRemoved).isEqualTo("That book is not available");
+    }
+
+    @Test
+    public void selectMenuOptionReturnBookOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
+        List<Book> bookListMocked = getBooksList();
+        Mockito.when(bookRepository.getReturnBookList()).thenReturn(bookListMocked);
+        String bookList = bibliotecaService.printBooksList("3");
+        assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-20s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
+                + String.format("%-2s. %-45s %-20s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+    }
+
+    @Test
+    public void returnBookOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookRepository);
+        Mockito.when(bookRepository.returnBookFromList("1")).thenReturn(true);
+        bibliotecaService.returnBook("1");
+        Mockito.verify(bookRepository).returnBookFromList("1");
     }
 
     private List<Book> getBooksList() {

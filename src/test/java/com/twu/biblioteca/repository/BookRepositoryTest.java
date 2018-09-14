@@ -70,4 +70,56 @@ public class BookRepositoryTest {
         assertThat(bookRemoved).isFalse();
     }
 
+    @Test
+    public void returnBookListSizeOkTest() {
+        BookRepository bookRepository = new BookRepository();
+        List<Book> returnBookList = bookRepository.getReturnBookList();
+        bookRepository.deleteBookFromList("2");
+        assertThat(returnBookList).hasSize(1);
+    }
+
+    @Test
+    public void returnBookOkTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        bookRepository.deleteBookFromList("2");
+        Boolean bookRemoved = bookRepository.returnBookFromList("1");
+        assertThat(bookRemoved).isTrue();
+    }
+
+    @Test
+    public void returnBookNotCorrectNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        bookRepository.deleteBookFromList("2");
+        Boolean bookRemoved = bookRepository.returnBookFromList("7");
+        assertThat(bookRemoved).isFalse();
+    }
+
+    @Test
+    public void returnBookNotNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        bookRepository.deleteBookFromList("1");
+        Boolean bookRemoved = bookRepository.returnBookFromList("a");
+        assertThat(bookRemoved).isFalse();
+    }
+
+    @Test
+    public void returnBookZeroNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        bookRepository.deleteBookFromList("1");
+        Boolean bookRemoved = bookRepository.returnBookFromList("0");
+        assertThat(bookRemoved).isFalse();
+    }
+
+    @Test
+    public void returnBookNegativeNumberTest() {
+        BookRepository bookRepository = new BookRepository();
+        bookRepository.getBookList();
+        bookRepository.deleteBookFromList("-5");
+        Boolean bookRemoved = bookRepository.returnBookFromList("1");
+        assertThat(bookRemoved).isFalse();
+    }
 }

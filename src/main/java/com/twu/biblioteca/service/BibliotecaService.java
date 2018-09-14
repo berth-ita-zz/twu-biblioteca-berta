@@ -3,6 +3,7 @@ package com.twu.biblioteca.service;
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.repository.BookRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BibliotecaService {
@@ -18,7 +19,7 @@ public class BibliotecaService {
     }
 
     public String getMainMenuMessage() {
-        return "1 - List books\n2 - Check out book\n3 - Quit\n";
+        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - Quit\n";
     }
 
     public String getBooksList() {
@@ -32,8 +33,14 @@ public class BibliotecaService {
         return bookListToPrint;
     }
 
-    public String printBooksList() {
-        List<Book> bookList = bookRepository.getBookList();
+    public String printBooksList(String option) {
+        List<Book> bookList = new ArrayList<>();
+        if (option.equals("2")) {
+            bookList = bookRepository.getBookList();
+        }
+        if (option.equals("3")) {
+            bookList = bookRepository.getReturnBookList();
+        }
         String bookListToPrint = "";
         for (int i = 0; i < bookList.size(); i++) {
             bookListToPrint = bookListToPrint.concat(String.format("%-2s. %-45s %-20s %-4s\n", i + 1, bookList.get(i).getTitle(),
@@ -50,4 +57,8 @@ public class BibliotecaService {
         return "That book is not available";
     }
 
+    public String returnBook(String bookNumber) {
+        bookRepository.returnBookFromList(bookNumber);
+        return "";
+    }
 }

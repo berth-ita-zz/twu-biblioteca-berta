@@ -40,7 +40,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void selectMenuOptionQuitOkTest() throws Exception {
-        String quit = BibliotecaApp.selectMenuOption("3");
+        String quit = BibliotecaApp.selectMenuOption("4");
         assertThat(quit).isEqualTo("Quit");
     }
 
@@ -52,7 +52,7 @@ public class BibliotecaAppTest {
         Mockito.when(bibliotecaService.checkOutBook("1")).thenReturn("Thank you! Enjoy the book");
         BibliotecaApp.selectMenuOption("2");
         String bookCheckOutResult = bibliotecaService.checkOutBook("1");
-        Mockito.verify(bibliotecaService).printBooksList();
+        Mockito.verify(bibliotecaService).printBooksList("2");
         assertThat(bookCheckOutResult).isEqualTo("Thank you! Enjoy the book");
     }
 
@@ -66,8 +66,16 @@ public class BibliotecaAppTest {
         BibliotecaApp.selectMenuOption("2");
         bibliotecaService.checkOutBook("7");
         String bookCheckOutResult = bibliotecaService.checkOutBook("1");
-        Mockito.verify(bibliotecaService).printBooksList();
+        Mockito.verify(bibliotecaService).printBooksList("2");
         assertThat(bookCheckOutResult).isEqualTo("Thank you! Enjoy the book");
+    }
+
+    @Test
+    public void selectMenuOptionReturnBookOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.selectMenuOption("3");
+        Mockito.verify(bibliotecaService).printBooksList("3");
     }
 
 }
