@@ -34,4 +34,12 @@ public class BibliotecaService {
         return movieService.getMoviesList();
     }
 
+    public String printMoviesList() {
+        return movieService.printMoviesList();
+    }
+
+    public String operationMovie(String movieNumber) {
+        return movieService.operationMovie(movieNumber);
+    }
+
 }

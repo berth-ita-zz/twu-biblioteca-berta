@@ -58,4 +58,18 @@ public class BibliotecaServiceTest {
         Mockito.verify(movieService).getMoviesList();
     }
 
+    @Test
+    public void printMoviesListOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService);
+        bibliotecaService.printMoviesList();
+        Mockito.verify(movieService).printMoviesList();
+    }
+
+    @Test
+    public void operationMovieOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService);
+        bibliotecaService.operationMovie("1");
+        Mockito.verify(movieService).operationMovie("1");
+    }
+
 }
