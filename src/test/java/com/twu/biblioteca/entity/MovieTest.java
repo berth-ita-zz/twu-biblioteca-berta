@@ -37,11 +37,17 @@ public class MovieTest {
     }
 
     @Test
-    public void movieRatingOkTest() {
+    public void movieRatingNumberOkTest() {
         Movie movie = new Movie();
         Integer movieRating = 5;
         movie.setRating(movieRating);
         assertThat(movie.getRating()).isEqualTo(5);
+    }
+
+    @Test
+    public void movieRatingNullOkTest() {
+        Movie movie = new Movie();
+        assertThat(movie.getRating()).isNull();
     }
 
     @Test(expected = InvalidRatingException.class)

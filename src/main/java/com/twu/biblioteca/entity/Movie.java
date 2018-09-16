@@ -11,7 +11,7 @@ public class Movie extends BibliotecaProduct {
     }
 
     public void setRating(Integer rating) {
-        if((rating < 0) || (rating > 10)){
+        if((rating != null) && ((rating < 1) || (rating > 10))){
             throw new InvalidRatingException();
         }
         this.rating = rating;
