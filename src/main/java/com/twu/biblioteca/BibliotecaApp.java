@@ -2,6 +2,8 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.repository.BookRepository;
 import com.twu.biblioteca.service.BibliotecaService;
+import com.twu.biblioteca.service.BookService;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +19,8 @@ public class BibliotecaApp {
 
     public static void main(String[] args) throws IOException {
         BookRepository bookRepository = new BookRepository();
-        bibliotecaService = new BibliotecaService(bookRepository);
+        BookService bookService = new BookService(bookRepository);
+        bibliotecaService = new BibliotecaService(bookService);
         System.out.println(bibliotecaService.getWelcomeMessage());
         String menuOptionResult = "";
         while(!menuOptionResult.equals("Quit")) {
