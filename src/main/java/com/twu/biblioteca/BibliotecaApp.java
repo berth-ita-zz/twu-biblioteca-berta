@@ -1,9 +1,10 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.repository.BookRepository;
+import com.twu.biblioteca.repository.MovieRepository;
 import com.twu.biblioteca.service.BibliotecaService;
 import com.twu.biblioteca.service.BookService;
-
+import com.twu.biblioteca.service.MovieService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,9 +19,7 @@ public class BibliotecaApp {
     static BibliotecaService bibliotecaService;
 
     public static void main(String[] args) throws IOException {
-        BookRepository bookRepository = new BookRepository();
-        BookService bookService = new BookService(bookRepository);
-        bibliotecaService = new BibliotecaService(bookService);
+        createBibliotecaService();
         System.out.println(bibliotecaService.getWelcomeMessage());
         String menuOptionResult = "";
         while(!menuOptionResult.equals("Quit")) {
@@ -35,7 +34,7 @@ public class BibliotecaApp {
         }
     }
 
-    public static String selectMenuOption(String option) throws IOException {
+    static String selectMenuOption(String option) throws IOException {
         switch (option) {
             case "1":
                 String bookList = bibliotecaService.getBooksList();
@@ -73,10 +72,21 @@ public class BibliotecaApp {
                     System.out.println(bookReturnResult);
                 }
             case "4":
+                String movieList = bibliotecaService.getMoviesList();
+                return movieList;
+            case "5":
                 return "Quit";
             default:
                 return "Select a valid option!\n";
         }
+    }
+
+    private static void createBibliotecaService() {
+        BookRepository bookRepository = new BookRepository();
+        MovieRepository movieRepository = new MovieRepository();
+        BookService bookService = new BookService(bookRepository);
+        MovieService movieService = new MovieService(movieRepository);
+        bibliotecaService = new BibliotecaService(bookService, movieService);
     }
 
 }

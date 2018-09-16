@@ -33,7 +33,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void selectMenuOptionQuitOkTest() throws Exception {
-        String quit = BibliotecaApp.selectMenuOption("4");
+        String quit = BibliotecaApp.selectMenuOption("5");
         assertThat(quit).isEqualTo("Quit");
     }
 
@@ -105,6 +105,13 @@ public class BibliotecaAppTest {
         String bookCheckOutResult = BibliotecaApp.selectMenuOption("3");
         Mockito.verify(bibliotecaService).printBooksList("3");
         assertThat(bookCheckOutResult).isEqualTo("Thank you for returning the book");
+    }
+
+    @Test
+    public void selectMenuOptionListMovieOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.selectMenuOption("4");
+        Mockito.verify(bibliotecaService).getMoviesList();
     }
 
 }
