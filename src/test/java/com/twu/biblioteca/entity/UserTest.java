@@ -11,7 +11,7 @@ public class UserTest {
         User user = new User();
         String libraryNumber = "xxx-xxxx";
         user.setLibraryNumber(libraryNumber);
-        assertThat(user.getLibraryNumber()).isEquals(libraryNumber);
+        assertThat(user.getLibraryNumber()).isEqualTo(libraryNumber);
     }
 
     @Test(expected = InvalidLibraryNumberException.class)
@@ -26,7 +26,7 @@ public class UserTest {
         User user = new User();
         String password = "testPassword";
         user.setPassword(password);
-        assertThat(user.getPassword()).isEquals(password);
+        assertThat(user.getPassword()).isEqualTo(password);
     }
 
 }
