@@ -22,10 +22,10 @@ public class BookTest {
     }
 
     @Test
-    public void bookYearPublishedOkTest() {
+    public void bookYearOkTest() {
         Book book = new Book();
-        Integer bookYearPublished = 1987;
-        book.setYearPublished(bookYearPublished);
-        assertThat(book.getYearPublished()).isEqualTo(bookYearPublished);
+        Integer bookYear = 1987;
+        book.setYear(bookYear);
+        assertThat(book.getYear()).isEqualTo(bookYear);
     }
 }

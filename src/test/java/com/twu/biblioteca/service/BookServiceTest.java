@@ -95,7 +95,7 @@ public class BookServiceTest {
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
-        book.setYearPublished(yearPublished);
+        book.setYear(yearPublished);
         return book;
     }
 
