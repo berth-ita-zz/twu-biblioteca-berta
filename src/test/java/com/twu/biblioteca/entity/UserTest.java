@@ -29,4 +29,21 @@ public class UserTest {
         assertThat(user.getPassword()).isEqualTo(password);
     }
 
+    @Test
+    public void userBookCheckedOut() {
+        User user = new User();
+        Book book = getBook();
+        user.setBookCheckedOut(book);
+        assertThat(user.getBookCheckedOut()).isEqualToComparingFieldByFieldRecursively(book);
+    }
+
+    private Book getBook() {
+        Book bookCheckOut = new Book();
+        bookCheckOut.setTitle("The Hobbit");
+        bookCheckOut.setAuthor("J.R.R Tolkien");
+        bookCheckOut.setYear(1937);
+        return bookCheckOut;
+    }
+
+
 }

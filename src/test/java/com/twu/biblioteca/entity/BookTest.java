@@ -28,4 +28,19 @@ public class BookTest {
         book.setYear(bookYear);
         assertThat(book.getYear()).isEqualTo(bookYear);
     }
+
+    @Test
+    public void compareBooksOkTest() {
+        Book book1 = createBook();
+        Book book2 = createBook();
+        assertThat(book1.equals(book2)).isTrue();
+    }
+
+    private Book createBook() {
+        Book book = new Book();
+        book.setTitle("Test Book Title");
+        book.setAuthor("Test Book Author");
+        book.setYear(1987);
+        return book;
+    }
 }
