@@ -2,15 +2,16 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.repository.BookRepository;
 import com.twu.biblioteca.service.BibliotecaService;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BibliotecaApp {
 
-    public static final String INVALID_CHECKOUT_RESPONSE = "That book is not available";
-    public static final String INVALID_RETURN_RESPONSE = "This is not a valid book to return";
+    private static final String INVALID_CHECKOUT_RESPONSE = "That book is not available";
+    private static final String INVALID_RETURN_RESPONSE = "This is not a valid book to return";
+    private static final String NO_BOOKS_TO_CHECKOUT_RESPONSE = "There are no books available to check out";
+    private static final String NO_BOOKS_TO_RETURN_RESPONSE = "There are no books available to return";
     static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     static BibliotecaService bibliotecaService;
 
@@ -37,10 +38,13 @@ public class BibliotecaApp {
                 String bookList = bibliotecaService.getBooksList();
                 return bookList;
             case "2":
+                String booksAvailableToCheckOut = bibliotecaService.printBooksList(option);
+                if(booksAvailableToCheckOut.isEmpty()) {
+                    return NO_BOOKS_TO_CHECKOUT_RESPONSE;
+                }
                 System.out.println("Books available:");
-                System.out.println(bibliotecaService.printBooksList(option));
-                Boolean validCheckOutBook = false;
-                while(!validCheckOutBook) {
+                System.out.println(booksAvailableToCheckOut);
+                while(true) {
                     System.out.print("Select an option: ");
                     String bookToCheckOut = bufferedReader.readLine();
                     String bookCheckOutResult = bibliotecaService.operationBook(bookToCheckOut, option);
@@ -48,13 +52,15 @@ public class BibliotecaApp {
                         return bookCheckOutResult;
                     }
                     System.out.println(bookCheckOutResult);
-                    validCheckOutBook = false;
                 }
             case "3":
+                String booksAvailableToReturn = bibliotecaService.printBooksList(option);
+                if(booksAvailableToReturn.isEmpty()) {
+                    return NO_BOOKS_TO_RETURN_RESPONSE;
+                }
                 System.out.println("Which book do you want to return? ");
-                System.out.println(bibliotecaService.printBooksList(option));
-                Boolean validReturnBook = false;
-                while(!validReturnBook) {
+                System.out.println(booksAvailableToReturn);
+                while(true) {
                     System.out.print("Select an option: ");
                     String bookToReturn= bufferedReader.readLine();
                     String bookReturnResult = bibliotecaService.operationBook(bookToReturn, option);
@@ -62,7 +68,6 @@ public class BibliotecaApp {
                         return bookReturnResult;
                     }
                     System.out.println(bookReturnResult);
-                    validReturnBook = false;
                 }
             case "4":
                 return "Quit";
