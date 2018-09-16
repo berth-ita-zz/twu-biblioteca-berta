@@ -1,6 +1,7 @@
 package com.twu.biblioteca.repository;
 
 import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.util.NumericUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,22 +44,11 @@ public class BookRepository {
     }
 
     private Boolean getListOperationResult(String bookNumber, List<Book> listToDelete, List<Book> listToAdd) {
-        if (checkBookNumberIsNumeric(bookNumber)) return false;
-        if (checkBookNumberIsOnList(bookNumber, listToDelete)) return false;
+        if (!NumericUtils.numberIsNumeric(bookNumber)) return false;
+        if (NumericUtils.checkElementIsOnList(bookNumber, listToDelete.size())) return false;
         listToAdd.add(listToDelete.get(Integer.parseInt(bookNumber) - 1));
         listToDelete.remove(Integer.parseInt(bookNumber) - 1);
         return true;
     }
 
-    private boolean checkBookNumberIsOnList(String bookNumber, List<Book> bookList) {
-        return (Integer.parseInt(bookNumber) <= 0) || (Integer.parseInt(bookNumber) > bookList.size());
-    }
-
-    private boolean checkBookNumberIsNumeric(String bookNumber) {
-        return (!bookNumberIsNumeric(bookNumber));
-    }
-
-    private static boolean bookNumberIsNumeric(String bookNumber) {
-        return bookNumber.matches("-?\\d+(\\.\\d+)?");
-    }
 }
