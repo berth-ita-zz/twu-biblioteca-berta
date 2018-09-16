@@ -37,7 +37,7 @@ public class BibliotecaApp {
     static String selectMenuOption(String option) throws IOException {
         switch (option) {
             case "1":
-                return bibliotecaService.getBooksList();;
+                return bibliotecaService.getBooksList();
             case "2":
                 String booksAvailableToCheckOut = bibliotecaService.printBooksList(option);
                 if(booksAvailableToCheckOut.isEmpty()) {
@@ -71,7 +71,7 @@ public class BibliotecaApp {
                     System.out.println(bookReturnResult);
                 }
             case "4":
-                return bibliotecaService.getMoviesList();;
+                return bibliotecaService.getMoviesList();
             case "5":
                 return "Quit";
             default:
