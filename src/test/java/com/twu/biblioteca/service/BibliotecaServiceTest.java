@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +48,8 @@ public class BibliotecaServiceTest {
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
         String bookList = bibliotecaService.printBooksList("2");
-        assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-20s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
-                + String.format("%-2s. %-45s %-20s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+        assertThat(bookList).isEqualTo(String.format("%-4s %-45s %-20s %-4s\n", "0001", "The Hobbit", "J.R.R Tolkien", 1937)
+                + String.format("%-4s %-45s %-20s %-4s\n","0002","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     @Test
@@ -77,8 +76,8 @@ public class BibliotecaServiceTest {
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getReturnBookList()).thenReturn(bookListMocked);
         String bookList = bibliotecaService.printBooksList("3");
-        assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-20s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
-                + String.format("%-2s. %-45s %-20s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+        assertThat(bookList).isEqualTo(String.format("%-4s %-45s %-20s %-4s\n", "0001", "The Hobbit", "J.R.R Tolkien", 1937)
+                + String.format("%-4s %-45s %-20s %-4s\n","0002","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     @Test
@@ -101,13 +100,14 @@ public class BibliotecaServiceTest {
 
     private List<Book> getBooksList() {
         List<Book> bookListMocked = new ArrayList<>();
-        bookListMocked.add(getBook("The Hobbit", "J.R.R Tolkien", 1937));
-        bookListMocked.add(getBook("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+        bookListMocked.add(getBook("0001","The Hobbit", "J.R.R Tolkien", 1937));
+        bookListMocked.add(getBook("0002","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
         return bookListMocked;
     }
 
-    private Book getBook(String title, String author, Integer yearPublished) {
+    private Book getBook(String id, String title, String author, Integer yearPublished) {
         Book book = new Book();
+        book.setId(id);
         book.setTitle(title);
         book.setAuthor(author);
         book.setYearPublished(yearPublished);

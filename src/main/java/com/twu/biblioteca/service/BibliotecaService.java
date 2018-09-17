@@ -43,9 +43,9 @@ public class BibliotecaService {
             bookList = bookRepository.getReturnBookList();
         }
         String bookListToPrint = "";
-        for (int i = 0; i < bookList.size(); i++) {
-            bookListToPrint = bookListToPrint.concat(String.format("%-2s. %-45s %-20s %-4s\n", i + 1, bookList.get(i).getTitle(),
-                    bookList.get(i).getAuthor(), bookList.get(i).getYearPublished().toString()));
+        for (Book aBookList : bookList) {
+            bookListToPrint = bookListToPrint.concat(String.format("%-4s %-45s %-20s %-4s\n", aBookList.getId(),
+                    aBookList.getTitle(), aBookList.getAuthor(), aBookList.getYearPublished().toString()));
         }
         return bookListToPrint;
     }

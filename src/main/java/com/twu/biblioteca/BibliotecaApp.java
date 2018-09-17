@@ -35,44 +35,36 @@ public class BibliotecaApp {
     public static String selectMenuOption(String option) throws IOException {
         switch (option) {
             case "1":
-                String bookList = bibliotecaService.getBooksList();
-                return bookList;
+                return bibliotecaService.getBooksList();
             case "2":
-                String booksAvailableToCheckOut = bibliotecaService.printBooksList(option);
-                if(booksAvailableToCheckOut.isEmpty()) {
-                    return NO_BOOKS_TO_CHECKOUT_RESPONSE;
-                }
-                System.out.println("Books available:");
-                System.out.println(booksAvailableToCheckOut);
-                while(true) {
-                    System.out.print("Select an option: ");
-                    String bookToCheckOut = bufferedReader.readLine();
-                    String bookCheckOutResult = bibliotecaService.operationBook(bookToCheckOut, option);
-                    if (!bookCheckOutResult.equals(INVALID_CHECKOUT_RESPONSE)) {
-                        return bookCheckOutResult;
-                    }
-                    System.out.println(bookCheckOutResult);
-                }
+                return getBookOperation(option, NO_BOOKS_TO_CHECKOUT_RESPONSE, "Books available:",
+                        INVALID_CHECKOUT_RESPONSE);
             case "3":
-                String booksAvailableToReturn = bibliotecaService.printBooksList(option);
-                if(booksAvailableToReturn.isEmpty()) {
-                    return NO_BOOKS_TO_RETURN_RESPONSE;
-                }
-                System.out.println("Which book do you want to return? ");
-                System.out.println(booksAvailableToReturn);
-                while(true) {
-                    System.out.print("Select an option: ");
-                    String bookToReturn= bufferedReader.readLine();
-                    String bookReturnResult = bibliotecaService.operationBook(bookToReturn, option);
-                    if (!bookReturnResult.equals(INVALID_RETURN_RESPONSE)) {
-                        return bookReturnResult;
-                    }
-                    System.out.println(bookReturnResult);
-                }
+                return getBookOperation(option, NO_BOOKS_TO_RETURN_RESPONSE, "Which book do you want to return? ",
+                        INVALID_RETURN_RESPONSE);
             case "4":
                 return "Quit";
             default:
                 return "Select a valid option!\n";
+        }
+    }
+
+    private static String getBookOperation(String option, String noBooksToCheckoutResponse, String userMessage,
+                                           String invalidCheckoutResponse) throws IOException {
+        String booksAvailableToCheckOut = bibliotecaService.printBooksList(option);
+        if (booksAvailableToCheckOut.isEmpty()) {
+            return noBooksToCheckoutResponse;
+        }
+        System.out.println(userMessage);
+        System.out.println(booksAvailableToCheckOut);
+        while (true) {
+            System.out.print("Select an option introducing book number: ");
+            String bookToCheckOut = bufferedReader.readLine();
+            String bookCheckOutResult = bibliotecaService.operationBook(bookToCheckOut, option);
+            if (!bookCheckOutResult.equals(invalidCheckoutResponse)) {
+                return bookCheckOutResult;
+            }
+            System.out.println(bookCheckOutResult);
         }
     }
 

@@ -11,11 +11,11 @@ public class BookRepository {
     private List<Book> returnBookList = new ArrayList<>();
 
     public BookRepository() {
-        bookList.add(getBook("The Hobbit", "J.R.R Tolkien", 1937));
-        bookList.add(getBook("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
-        bookList.add(getBook("The thief of Time", "Terry Pratchett", 2001));
-        bookList.add(getBook("Hogsfather", "Terry Pratchett", 1996));
-        bookList.add(getBook("Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 1999));
+        bookList.add(getBook("0001","The Hobbit", "J.R.R Tolkien", 1937));
+        bookList.add(getBook("0002","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
+        bookList.add(getBook("0012","The thief of Time", "Terry Pratchett", 2001));
+        bookList.add(getBook("1021","Hogsfather", "Terry Pratchett", 1996));
+        bookList.add(getBook("0987","Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 1999));
     }
 
     public List<Book> getBookList() {
@@ -26,8 +26,9 @@ public class BookRepository {
         return returnBookList;
     }
 
-    private Book getBook(String title, String author, Integer yearPublished) {
+    private Book getBook(String id, String title, String author, Integer yearPublished) {
         Book book = new Book();
+        book.setId(id);
         book.setTitle(title);
         book.setAuthor(author);
         book.setYearPublished(yearPublished);
@@ -43,7 +44,7 @@ public class BookRepository {
     }
 
     private Boolean getListOperationResult(String bookNumber, List<Book> listToDelete, List<Book> listToAdd) {
-        if (checkBookNumberIsNumeric(bookNumber)) return false;
+        if (!bookNumberIsNumeric(bookNumber)) return false;
         if (checkBookNumberIsOnList(bookNumber, listToDelete)) return false;
         listToAdd.add(listToDelete.get(Integer.parseInt(bookNumber) - 1));
         listToDelete.remove(Integer.parseInt(bookNumber) - 1);
@@ -52,10 +53,6 @@ public class BookRepository {
 
     private boolean checkBookNumberIsOnList(String bookNumber, List<Book> bookList) {
         return (Integer.parseInt(bookNumber) <= 0) || (Integer.parseInt(bookNumber) > bookList.size());
-    }
-
-    private boolean checkBookNumberIsNumeric(String bookNumber) {
-        return (!bookNumberIsNumeric(bookNumber));
     }
 
     private static boolean bookNumberIsNumeric(String bookNumber) {

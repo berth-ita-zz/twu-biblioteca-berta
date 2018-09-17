@@ -6,6 +6,14 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class BookTest {
 
     @Test
+    public void bookIdOkTest() {
+        Book book = new Book();
+        String id = "00001";
+        book.setId(id);
+        assertThat(book.getId()).isEqualTo(id);
+    }
+
+    @Test
     public void bookTitleOkTest() {
         Book book = new Book();
         String bookTitle = "Test Book Title";
