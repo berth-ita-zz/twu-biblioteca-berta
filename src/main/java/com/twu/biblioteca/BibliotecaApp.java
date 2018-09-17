@@ -43,14 +43,18 @@ public class BibliotecaApp {
             case "1":
                 return bibliotecaService.getBooksList();
             case "2":
-                User userLogged = logInUser();
-                if (userLogged == null) {
+                User userCheckOut = logInUser();
+                if (userCheckOut == null) {
                     return "This is not a valid user";
                 }
                 return getCheckOutBookOperation(option, NO_BOOKS_TO_CHECKOUT_RESPONSE, "Books available:",
-                        INVALID_BOOK_CHECKOUT_RESPONSE, userLogged);
+                        INVALID_BOOK_CHECKOUT_RESPONSE, userCheckOut);
             case "3":
-                return getReturnBookOperation(option, "Which book do you want to return? ", new User());
+                User userReturn = logInUser();
+                if (userReturn == null) {
+                    return "This is not a valid user";
+                }
+                return getReturnBookOperation(option, "Which book do you want to return? ", userReturn);
             case "4":
                 return bibliotecaService.getMoviesList();
             case "5":
