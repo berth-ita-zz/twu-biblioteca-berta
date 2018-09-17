@@ -8,7 +8,6 @@ import com.twu.biblioteca.service.BibliotecaService;
 import com.twu.biblioteca.service.BookService;
 import com.twu.biblioteca.service.MovieService;
 import com.twu.biblioteca.service.UserService;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +18,7 @@ public class BibliotecaApp {
     private static final String NO_BOOKS_TO_CHECKOUT_RESPONSE = "There are no books available to check out";
     private static final String INVALID_MOVIE_CHECKOUT_RESPONSE = "That movie is not available";
     private static final String NO_MOVIES_TO_CHECKOUT_RESPONSE = "There are no movies available to check out";
+    private static final String INVALID_USER_RESPONSE = "This is not a valid user";
     static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     static BibliotecaService bibliotecaService;
 
@@ -44,17 +44,16 @@ public class BibliotecaApp {
                 return bibliotecaService.getBooksList();
             case "2":
                 User userCheckOut = logInUser();
-                if (userCheckOut == null) {
-                    return "This is not a valid user";
+                if (userCheckOut != null) {
+                    return getCheckOutBookOperation(option, userCheckOut);
                 }
-                return getCheckOutBookOperation(option, NO_BOOKS_TO_CHECKOUT_RESPONSE, "Books available:",
-                        INVALID_BOOK_CHECKOUT_RESPONSE, userCheckOut);
+                return INVALID_USER_RESPONSE;
             case "3":
                 User userReturn = logInUser();
-                if (userReturn == null) {
-                    return "This is not a valid user";
+                if (userReturn != null) {
+                    return getReturnBookOperation(option, userReturn);
                 }
-                return getReturnBookOperation(option, "Which book do you want to return? ", userReturn);
+                return INVALID_USER_RESPONSE;
             case "4":
                 return bibliotecaService.getMoviesList();
             case "5":
@@ -74,29 +73,26 @@ public class BibliotecaApp {
         return bibliotecaService.userLogIn(libraryNumber, password);
     }
 
-    private static String getCheckOutBookOperation(String option, String noBookResponse, String userMessage,
-                                                   String invalidBookResponse, User user) throws IOException {
+    private static String getCheckOutBookOperation(String option, User user) throws IOException {
         String booksAvailable = bibliotecaService.printBooksList();
         if (booksAvailable.isEmpty()) {
-            return noBookResponse;
+            return BibliotecaApp.NO_BOOKS_TO_CHECKOUT_RESPONSE;
         }
-        System.out.println(userMessage);
+        System.out.println("Books available: ");
         System.out.println(booksAvailable);
         while (true) {
             System.out.print("Select an option: ");
             String bookSelection = bufferedReader.readLine();
             String bookResult = bibliotecaService.operationBook(bookSelection, option, user);
-            if (!bookResult.equals(invalidBookResponse)) {
+            if (!bookResult.equals(BibliotecaApp.INVALID_BOOK_CHECKOUT_RESPONSE)) {
                 return bookResult;
             }
             System.out.println(bookResult);
         }
     }
 
-    private static String getReturnBookOperation(String option, String userMessage, User user) {
-        System.out.println(userMessage);
-        String bookResult = bibliotecaService.operationBook("", option, user);
-        return bookResult;
+    private static String getReturnBookOperation(String option, User user) {
+        return bibliotecaService.operationBook("", option, user);
     }
 
     private static String getMovieOperation() throws IOException {

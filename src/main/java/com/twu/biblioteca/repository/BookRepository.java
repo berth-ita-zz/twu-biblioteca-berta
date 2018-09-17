@@ -11,7 +11,6 @@ import java.util.List;
 public class BookRepository {
 
     private List<Book> bookList = new ArrayList<>();
-    private List<Book> returnBookList = new ArrayList<>();
 
     public BookRepository() {
         bookList.add(getBook("The Hobbit", "J.R.R Tolkien", 1937));
@@ -23,10 +22,6 @@ public class BookRepository {
 
     public List<Book> getBookList() {
         return bookList;
-    }
-
-    public List<Book> getReturnBookList() {
-        return returnBookList;
     }
 
     private Book getBook(String title, String author, Integer yearPublished) {
@@ -58,8 +53,7 @@ public class BookRepository {
 
     private boolean verifyBookNumber(String bookNumber, List<Book> listToDelete) {
         if (!NumericUtils.numberIsNumeric(bookNumber)) return true;
-        if (NumericUtils.checkElementIsOnList(bookNumber, listToDelete.size())) return true;
-        return false;
+        return NumericUtils.checkElementIsOnList(bookNumber, listToDelete.size());
     }
 
 }

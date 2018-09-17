@@ -10,7 +10,7 @@ public class UserRepository {
 
     public UserRepository() {
         userList.add(getUser("123-4567", "password"));
-        userList.add(getUser("122-7890", "password"));
+        userList.add(getUser("122-7890", "password1"));
         userList.add(getUser("100-4567", "password"));
     }
 
