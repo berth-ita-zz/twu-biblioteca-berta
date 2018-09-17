@@ -44,18 +44,13 @@ public class BookRepository {
     }
 
     private Boolean getListOperationResult(String bookNumber, List<Book> listToDelete, List<Book> listToAdd) {
-        if (!bookNumberIsNumeric(bookNumber)) return false;
-        if (checkBookNumberIsOnList(bookNumber, listToDelete)) return false;
-        listToAdd.add(listToDelete.get(Integer.parseInt(bookNumber) - 1));
-        listToDelete.remove(Integer.parseInt(bookNumber) - 1);
-        return true;
-    }
-
-    private boolean checkBookNumberIsOnList(String bookNumber, List<Book> bookList) {
-        return (Integer.parseInt(bookNumber) <= 0) || (Integer.parseInt(bookNumber) > bookList.size());
-    }
-
-    private static boolean bookNumberIsNumeric(String bookNumber) {
-        return bookNumber.matches("-?\\d+(\\.\\d+)?");
+        for (int i = 0; i < listToDelete.size(); i++) {
+            if(listToDelete.get(i).getId().equals(bookNumber)){
+                listToAdd.add(listToDelete.get(i));
+                listToDelete.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 }

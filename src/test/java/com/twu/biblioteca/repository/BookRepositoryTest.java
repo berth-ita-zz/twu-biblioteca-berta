@@ -18,14 +18,14 @@ public class BookRepositoryTest {
     public void deleteBookFromListListSizeOkTest() {
         BookRepository bookRepository = new BookRepository();
         List<Book> bookList = bookRepository.getBookList();
-        bookRepository.deleteBookFromList("2");
+        bookRepository.deleteBookFromList("0012");
         assertThat(bookList).hasSize(4);
     }
 
     @Test
     public void deleteBookFromListOkTest() {
         BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteBookFromList("2");
+        Boolean bookRemoved = bookRepository.deleteBookFromList("0012");
         assertThat(bookRemoved).isTrue();
     }
 
@@ -37,78 +37,26 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void deleteBookFromListNotNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteBookFromList("a");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void deleteBookFromListLimitNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteBookFromList("6");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void deleteBookFromListZeroNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteBookFromList("0");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void deleteBookFromListNegativeNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteBookFromList("-5");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
     public void returnBookListSizeOkTest() {
         BookRepository bookRepository = new BookRepository();
         List<Book> returnBookList = bookRepository.getReturnBookList();
-        bookRepository.deleteBookFromList("2");
+        bookRepository.deleteBookFromList("0012");
         assertThat(returnBookList).hasSize(1);
     }
 
     @Test
     public void returnBookOkTest() {
         BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteBookFromList("2");
-        Boolean bookRemoved = bookRepository.returnBookFromList("1");
+        bookRepository.deleteBookFromList("0012");
+        Boolean bookRemoved = bookRepository.returnBookFromList("0012");
         assertThat(bookRemoved).isTrue();
     }
 
     @Test
     public void returnBookNotCorrectNumberTest() {
         BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteBookFromList("2");
         Boolean bookRemoved = bookRepository.returnBookFromList("7");
         assertThat(bookRemoved).isFalse();
     }
 
-    @Test
-    public void returnBookNotNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteBookFromList("1");
-        Boolean bookRemoved = bookRepository.returnBookFromList("a");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void returnBookZeroNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteBookFromList("1");
-        Boolean bookRemoved = bookRepository.returnBookFromList("0");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void returnBookNegativeNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteBookFromList("-5");
-        Boolean bookRemoved = bookRepository.returnBookFromList("1");
-        assertThat(bookRemoved).isFalse();
-    }
 }
