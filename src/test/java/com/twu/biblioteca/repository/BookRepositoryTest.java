@@ -1,6 +1,7 @@
 package com.twu.biblioteca.repository;
 
 import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.User;
 import org.junit.Test;
 import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -18,82 +19,62 @@ public class BookRepositoryTest {
     public void deleteBookFromListListSizeOkTest() {
         BookRepository bookRepository = new BookRepository();
         List<Book> bookList = bookRepository.getList();
-        bookRepository.deleteFromList("2");
+        bookRepository.loggedUserCheckOutElement("2", new User());
         assertThat(bookList).hasSize(4);
     }
 
     @Test
     public void deleteBookFromListOkTest() {
         BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteFromList("2");
+        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("2", new User());
         assertThat(bookRemoved).isTrue();
-    }
-
-    @Test
-    public void deleteBookFromListNotCorrectNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteFromList("25");
-        assertThat(bookRemoved).isFalse();
     }
 
     @Test
     public void deleteBookFromListNotNumberTest() {
         BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteFromList("a");
+        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("a", new User());
         assertThat(bookRemoved).isFalse();
     }
 
     @Test
     public void deleteBookFromListLimitNumberTest() {
         BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteFromList("6");
+        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("6", new User());
         assertThat(bookRemoved).isFalse();
     }
 
     @Test
     public void deleteBookFromListZeroNumberTest() {
         BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.deleteFromList("0");
+        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("0", new User());
         assertThat(bookRemoved).isFalse();
     }
 
     @Test
-    public void returnBookListSizeOkTest() {
+    public void deleteBookFromListUserWithBook() {
         BookRepository bookRepository = new BookRepository();
-        List<Book> returnBookList = bookRepository.getReturnList();
-        bookRepository.deleteFromList("2");
-        assertThat(returnBookList).hasSize(1);
+        User user = new User();
+        user.setBookCheckedOut(new Book());
+        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("1", user);
+        assertThat(bookRemoved).isFalse();
+
     }
 
     @Test
     public void returnBookOkTest() {
         BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteFromList("2");
-        Boolean bookRemoved = bookRepository.returnFromList("1");
+        User user = new User();
+        bookRepository.loggedUserCheckOutElement("2", user);
+        Boolean bookRemoved = bookRepository.loggedUserReturnElement(user);
         assertThat(bookRemoved).isTrue();
     }
 
     @Test
-    public void returnBookNotCorrectNumberTest() {
+    public void returnBookNotOkTest() {
         BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteFromList("2");
-        Boolean bookRemoved = bookRepository.returnFromList("7");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void returnBookNotNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteFromList("1");
-        Boolean bookRemoved = bookRepository.returnFromList("a");
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void returnBookZeroNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        bookRepository.deleteFromList("1");
-        Boolean bookRemoved = bookRepository.returnFromList("0");
+        User user = new User();
+        Boolean bookRemoved = bookRepository.loggedUserReturnElement(user);
         assertThat(bookRemoved).isFalse();
     }
 

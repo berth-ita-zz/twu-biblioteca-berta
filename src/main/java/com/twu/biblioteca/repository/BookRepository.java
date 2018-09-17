@@ -1,6 +1,7 @@
 package com.twu.biblioteca.repository;
 
 import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.User;
 
 public class BookRepository extends BibliotecaProductRepository<Book> {
 
@@ -21,4 +22,13 @@ public class BookRepository extends BibliotecaProductRepository<Book> {
         return book;
     }
 
+    @Override
+    protected Book getCheckedOutElement(User user) {
+        return user.getBookCheckedOut();
+    }
+
+    @Override
+    protected void setElementCheckedOut(User user, Book book) {
+        user.setBookCheckedOut(book);
+    }
 }

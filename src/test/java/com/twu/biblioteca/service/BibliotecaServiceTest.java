@@ -14,20 +14,29 @@ public class BibliotecaServiceTest {
     private BookService bookService;
     @Mock
     private MovieService movieService;
+    @Mock
+    private UserService userService;
 
     @Test
     public void printWelcomeMessageOkTest() {
-        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService);
+        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         String welcomeMessage = bibliotecaService.getWelcomeMessage();
         assertThat(welcomeMessage).isEqualTo("Welcome to La Biblioteca!");
     }
 
     @Test
-    public void printMainMenuOkTest() {
-        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService);
-        String mainMenuMessage = bibliotecaService.getMainMenuMessage();
+    public void printMainMenuUserLoggedOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
+        String mainMenuMessage = bibliotecaService.getMainMenuMessageUserLogged();
         assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n" +
-                "5 - Check out movie\n6 - Return movie\n7 - Quit\n");
+                "5 - Check out movie\n6 - Return movie\n7 - Log out\n8 - Quit\n");
+    }
+
+    @Test
+    public void printMainMenuUserNotLoggedOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
+        String mainMenuMessage = bibliotecaService.getMainMenuMessageUserNotLogged();
+        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - List movies\n3- Log in\n4 - Quit\n");
     }
 
 }

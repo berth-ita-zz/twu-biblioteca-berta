@@ -1,22 +1,30 @@
 package com.twu.biblioteca.service;
 
+import com.twu.biblioteca.entity.User;
+
 public class BibliotecaService {
 
     private BookService bookService;
     private MovieService movieService;
+    private UserService userService;
 
-    public BibliotecaService(BookService bookService, MovieService movieService) {
+    public BibliotecaService(BookService bookService, MovieService movieService, UserService userService) {
         this.bookService = bookService;
         this.movieService = movieService;
+        this.userService = userService;
     }
 
     public String getWelcomeMessage() {
         return "Welcome to La Biblioteca!";
     }
 
-    public String getMainMenuMessage() {
+    public String getMainMenuMessageUserNotLogged() {
+        return "1 - List books\n2 - List movies\n3- Log in\n4 - Quit\n";
+    }
+
+    public String getMainMenuMessageUserLogged() {
         return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n" +
-                "6 - Return movie\n7 - Quit\n";
+                "6 - Return movie\n7 - Log out\n8 - Quit\n";
     }
 
     public String getBooksList() {
@@ -41,6 +49,10 @@ public class BibliotecaService {
 
     public String operationMovie(String movieId, String option) {
         return movieService.elementOperation(movieId, option);
+    }
+
+    public User userLogIn(String libraryNumber, String password) {
+        return userService.userLogIn(libraryNumber, password);
     }
 
 }
