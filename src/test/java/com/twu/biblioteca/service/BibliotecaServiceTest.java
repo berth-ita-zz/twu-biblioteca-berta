@@ -87,8 +87,8 @@ public class BibliotecaServiceTest {
     @Test
     public void userProfileInformationOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
-        bibliotecaService.getUserProfile("123-4567", "password");
-        Mockito.verify(userService).getUserProfileInformation("123-4567", "password");
+        bibliotecaService.getUserProfile(new User());
+        Mockito.verify(userService).getUserProfileInformation(new User());
     }
 
 }

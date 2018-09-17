@@ -37,8 +37,7 @@ public class UserServiceTest {
     public void userProfileInformationOkTest() {
         UserService userService = new UserService(userRepository);
         User userMocked = getUser();
-        Mockito.when(userRepository.getUserByUserPassword(userMocked.getLibraryNumber(), userMocked.getPassword())).thenReturn(userMocked);
-        String userData = userService.getUserProfileInformation(userMocked.getLibraryNumber(), userMocked.getPassword());
+        String userData = userService.getUserProfileInformation(userMocked);
         assertThat(userData).isEqualTo("Name: " + userMocked.getName() + "\nEmail: " + userMocked.getEmail() +
                 "\nAddress: " + userMocked.getAddress() + "\nPhone Number: " + userMocked.getPhoneNumber());
     }

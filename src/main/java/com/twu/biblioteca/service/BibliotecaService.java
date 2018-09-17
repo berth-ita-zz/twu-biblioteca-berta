@@ -50,7 +50,7 @@ public class BibliotecaService {
         return userService.userLogIn(libraryNumber, password);
     }
 
-    public String getUserProfile(String libraryNumber, String password) {
-        return userService.getUserProfileInformation(libraryNumber, password);
+    public String getUserProfile(User user) {
+        return userService.getUserProfileInformation(user);
     }
 }

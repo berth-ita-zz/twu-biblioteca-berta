@@ -35,7 +35,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void selectMenuOptionQuitOkTest() throws Exception {
-        String quit = BibliotecaApp.selectMenuOption("6");
+        String quit = BibliotecaApp.selectMenuOption("7");
         assertThat(quit).isEqualTo("Quit");
     }
 
@@ -151,6 +151,25 @@ public class BibliotecaAppTest {
         String movieCheckOutResult = BibliotecaApp.selectMenuOption("5");
         Mockito.verify(bibliotecaService).printMoviesList();
         assertThat(movieCheckOutResult).isEqualTo("Thank you! Enjoy the movie");
+    }
+
+    @Test
+    public void userProfileOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        Mockito.when(bufferedReader.readLine()).thenReturn("123-4567").thenReturn("password").thenReturn("1");
+        Mockito.when(bibliotecaService.userLogIn("123-4567", "password")).thenReturn(new User());
+        Mockito.when(bibliotecaService.getUserProfile(new User())).thenReturn("test");
+        String result = BibliotecaApp.selectMenuOption("6");
+        assertThat(result).isNotEmpty();
+    }
+
+    @Test
+    public void userProfileNotOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        String result = BibliotecaApp.selectMenuOption("6");
+        assertThat(result).isEqualTo("This is not a valid user");
     }
 
 }

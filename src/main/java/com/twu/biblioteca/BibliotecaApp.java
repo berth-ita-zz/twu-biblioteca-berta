@@ -59,6 +59,12 @@ public class BibliotecaApp {
             case "5":
                 return getMovieOperation();
             case "6":
+                User userProfile = logInUser();
+                if (userProfile != null) {
+                    return bibliotecaService.getUserProfile(userProfile);
+                }
+                return INVALID_USER_RESPONSE;
+            case "7":
                 return "Quit";
             default:
                 return "Select a valid option!\n";
