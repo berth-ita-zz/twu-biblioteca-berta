@@ -3,9 +3,11 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.entity.User;
 import com.twu.biblioteca.repository.BookRepository;
 import com.twu.biblioteca.repository.MovieRepository;
+import com.twu.biblioteca.repository.UserRepository;
 import com.twu.biblioteca.service.BibliotecaService;
 import com.twu.biblioteca.service.BookService;
 import com.twu.biblioteca.service.MovieService;
+import com.twu.biblioteca.service.UserService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,8 +43,12 @@ public class BibliotecaApp {
             case "1":
                 return bibliotecaService.getBooksList();
             case "2":
+                User userLogged = logInUser();
+                if (userLogged == null) {
+                    return "This is not a valid user";
+                }
                 return getCheckOutBookOperation(option, NO_BOOKS_TO_CHECKOUT_RESPONSE, "Books available:",
-                        INVALID_BOOK_CHECKOUT_RESPONSE, new User());
+                        INVALID_BOOK_CHECKOUT_RESPONSE, userLogged);
             case "3":
                 return getReturnBookOperation(option, "Which book do you want to return? ", new User());
             case "4":
@@ -56,22 +62,12 @@ public class BibliotecaApp {
         }
     }
 
-    private static String getMovieOperation() throws IOException {
-        String moviesAvailable = bibliotecaService.printMoviesList();
-        if (moviesAvailable.isEmpty()) {
-            return NO_MOVIES_TO_CHECKOUT_RESPONSE;
-        }
-        System.out.println("Movies available:");
-        System.out.println(moviesAvailable);
-        while (true) {
-            System.out.print("Select an option: ");
-            String movieSelection = bufferedReader.readLine();
-            String movieResult = bibliotecaService.operationMovie(movieSelection);
-            if (!movieResult.equals(INVALID_MOVIE_CHECKOUT_RESPONSE)) {
-                return movieResult;
-            }
-            System.out.println(movieResult);
-        }
+    private static User logInUser() throws IOException {
+        System.out.println("Introduce your library number: ");
+        String libraryNumber = bufferedReader.readLine();
+        System.out.println("Introduce your password: ");
+        String password = bufferedReader.readLine();
+        return bibliotecaService.userLogIn(libraryNumber, password);
     }
 
     private static String getCheckOutBookOperation(String option, String noBookResponse, String userMessage,
@@ -99,12 +95,32 @@ public class BibliotecaApp {
         return bookResult;
     }
 
+    private static String getMovieOperation() throws IOException {
+        String moviesAvailable = bibliotecaService.printMoviesList();
+        if (moviesAvailable.isEmpty()) {
+            return NO_MOVIES_TO_CHECKOUT_RESPONSE;
+        }
+        System.out.println("Movies available:");
+        System.out.println(moviesAvailable);
+        while (true) {
+            System.out.print("Select an option: ");
+            String movieSelection = bufferedReader.readLine();
+            String movieResult = bibliotecaService.operationMovie(movieSelection);
+            if (!movieResult.equals(INVALID_MOVIE_CHECKOUT_RESPONSE)) {
+                return movieResult;
+            }
+            System.out.println(movieResult);
+        }
+    }
+
     private static void createBibliotecaService() {
         BookRepository bookRepository = new BookRepository();
         MovieRepository movieRepository = new MovieRepository();
+        UserRepository userRepository = new UserRepository();
         BookService bookService = new BookService(bookRepository);
         MovieService movieService = new MovieService(movieRepository);
-        bibliotecaService = new BibliotecaService(bookService, movieService);
+        UserService userService = new UserService(userRepository);
+        bibliotecaService = new BibliotecaService(bookService, movieService, userService);
     }
 
 }

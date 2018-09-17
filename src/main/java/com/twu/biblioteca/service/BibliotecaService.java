@@ -6,10 +6,12 @@ public class BibliotecaService {
 
     private BookService bookService;
     private MovieService movieService;
+    private UserService userService;
 
-    public BibliotecaService(BookService bookService, MovieService movieService) {
+    public BibliotecaService(BookService bookService, MovieService movieService, UserService userService) {
         this.bookService = bookService;
         this.movieService = movieService;
+        this.userService = userService;
     }
 
     public String getWelcomeMessage() {
@@ -17,7 +19,7 @@ public class BibliotecaService {
     }
 
     public String getMainMenuMessage() {
-        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Quit\n";
+        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n6 - Quit\n";
     }
 
     public String getBooksList() {
@@ -44,4 +46,7 @@ public class BibliotecaService {
         return movieService.operationMovie(movieNumber);
     }
 
+    public User userLogIn(String libraryNumber, String password) {
+        return userService.userLogIn(libraryNumber, password);
+    }
 }
