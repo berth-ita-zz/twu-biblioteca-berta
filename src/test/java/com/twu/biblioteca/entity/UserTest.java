@@ -37,6 +37,38 @@ public class UserTest {
         assertThat(user.getBookCheckedOut()).isEqualToComparingFieldByFieldRecursively(book);
     }
 
+    @Test
+    public void userNameOkTest() {
+        User user = new User();
+        String name = "User name";
+        user.setName(name);
+        assertThat(user.getName()).isEqualTo(name);
+    }
+
+    @Test
+    public void userEmailOkTest() {
+        User user = new User();
+        String email = "userEmail@email.com";
+        user.setEmail(email);
+        assertThat(user.getEmail()).isEqualTo(email);
+    }
+
+    @Test
+    public void userAddressOkTest() {
+        User user = new User();
+        String address = "user address";
+        user.setAddress(address);
+        assertThat(user.getAddress()).isEqualTo(address);
+    }
+
+    @Test
+    public void userPhoneNumberOkTest() {
+        User user = new User();
+        Integer phone = 930000000;
+        user.setPhoneNumber(phone);
+        assertThat(user.getPhoneNumber()).isEqualTo(phone);
+    }
+
     private Book getBook() {
         Book bookCheckOut = new Book();
         bookCheckOut.setTitle("The Hobbit");
@@ -44,6 +76,5 @@ public class UserTest {
         bookCheckOut.setYear(1937);
         return bookCheckOut;
     }
-
 
 }
