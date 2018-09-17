@@ -1,8 +1,10 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.repository.BookRepository;
+import com.twu.biblioteca.repository.MovieRepository;
 import com.twu.biblioteca.service.BibliotecaService;
 import com.twu.biblioteca.service.BookService;
+import com.twu.biblioteca.service.MovieService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +21,10 @@ public class BibliotecaApp {
 
     public static void main(String[] args) throws IOException {
         BookRepository bookRepository = new BookRepository();
+        MovieRepository movieRepository = new MovieRepository();
         BookService bookService = new BookService(bookRepository);
-        bibliotecaService = new BibliotecaService(bookService);
+        MovieService movieService = new MovieService(movieRepository);
+        bibliotecaService = new BibliotecaService(bookService, movieService);
         System.out.println(bibliotecaService.getWelcomeMessage());
         String menuOptionResult = "";
         while(!menuOptionResult.equals("Quit")) {
@@ -46,6 +50,8 @@ public class BibliotecaApp {
                 return getBookOperation(option, NO_BOOKS_TO_RETURN_RESPONSE, "Which book do you want to return? ",
                         INVALID_RETURN_RESPONSE);
             case "4":
+                return bibliotecaService.getMoviesList();
+            case "5":
                 return "Quit";
             default:
                 return "Select a valid option!\n";
