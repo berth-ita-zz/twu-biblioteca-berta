@@ -19,15 +19,8 @@ public class BookRepositoryTest {
     public void deleteBookFromListListSizeOkTest() {
         BookRepository bookRepository = new BookRepository();
         List<Book> bookList = bookRepository.getList();
-        bookRepository.loggedUserCheckOutElement("2", new User());
+        bookRepository.loggedUserCheckOutElement("0012", new User());
         assertThat(bookList).hasSize(4);
-    }
-
-    @Test
-    public void deleteBookFromListOkTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("2", new User());
-        assertThat(bookRemoved).isTrue();
     }
 
     @Test
@@ -38,34 +31,19 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void deleteBookFromListLimitNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("6", new User());
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void deleteBookFromListZeroNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("0", new User());
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
     public void deleteBookFromListUserWithBook() {
         BookRepository bookRepository = new BookRepository();
         User user = new User();
         user.setBookCheckedOut(new Book());
         Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("1", user);
         assertThat(bookRemoved).isFalse();
-
     }
 
     @Test
     public void returnBookOkTest() {
         BookRepository bookRepository = new BookRepository();
         User user = new User();
-        bookRepository.loggedUserCheckOutElement("2", user);
+        bookRepository.loggedUserCheckOutElement("0012", user);
         Boolean bookRemoved = bookRepository.loggedUserReturnElement(user);
         assertThat(bookRemoved).isTrue();
     }

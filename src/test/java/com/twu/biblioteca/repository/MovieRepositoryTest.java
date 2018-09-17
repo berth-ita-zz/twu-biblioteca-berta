@@ -19,35 +19,14 @@ public class MovieRepositoryTest {
     public void deleteMovieFromListListSizeOkTest() {
         MovieRepository movieRepository = new MovieRepository();
         List<Movie> movieList = movieRepository.getList();
-        movieRepository.loggedUserCheckOutElement("2", new User());
+        movieRepository.loggedUserCheckOutElement("1234", new User());
         assertThat(movieList).hasSize(4);
-    }
-
-    @Test
-    public void deleteMovieFromListOkTest() {
-        MovieRepository movieRepository = new MovieRepository();
-        Boolean movieRemoved = movieRepository.loggedUserCheckOutElement("2", new User());
-        assertThat(movieRemoved).isTrue();
     }
 
     @Test
     public void deleteMovieFromListNotNumberTest() {
         MovieRepository movieRepository = new MovieRepository();
         Boolean movieRemoved = movieRepository.loggedUserCheckOutElement("a", new User());
-        assertThat(movieRemoved).isFalse();
-    }
-
-    @Test
-    public void deleteMovieFromListLimitNumberTest() {
-        MovieRepository movieRepository = new MovieRepository();
-        Boolean movieRemoved = movieRepository.loggedUserCheckOutElement("6", new User());
-        assertThat(movieRemoved).isFalse();
-    }
-
-    @Test
-    public void deleteMovieFromListZeroNumberTest() {
-        MovieRepository movieRepository = new MovieRepository();
-        Boolean movieRemoved = movieRepository.loggedUserCheckOutElement("0", new User());
         assertThat(movieRemoved).isFalse();
     }
 
@@ -65,7 +44,7 @@ public class MovieRepositoryTest {
     public void returnMovieOkTest() {
         MovieRepository movieRepository = new MovieRepository();
         User user = new User();
-        movieRepository.loggedUserCheckOutElement("2", user);
+        movieRepository.loggedUserCheckOutElement("1234", user);
         Boolean movieRemoved = movieRepository.loggedUserReturnElement(user);
         assertThat(movieRemoved).isTrue();
     }

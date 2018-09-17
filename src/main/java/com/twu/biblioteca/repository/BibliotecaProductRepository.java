@@ -16,10 +16,13 @@ public abstract class BibliotecaProductRepository<T extends BibliotecaProduct> {
 
     public Boolean loggedUserCheckOutElement(String elementId, User user) {
         if(getCheckedOutElement(user) == null) {
-            if (!verifyElementNumber(elementId, availableList)) return false;
-            setElementCheckedOut(user, availableList.get(Integer.parseInt(elementId) - 1));
-            availableList.remove(Integer.parseInt(elementId) - 1);
-            return true;
+            for (int i = 0; i < availableList.size(); i++) {
+                if(availableList.get(i).getId().equals(elementId)){
+                    setElementCheckedOut(user, availableList.get(i));
+                    availableList.remove(i);
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -31,22 +34,6 @@ public abstract class BibliotecaProductRepository<T extends BibliotecaProduct> {
             return true;
         }
         return false;
-    }
-
-    private boolean checkElementIdIsOnList(String elementId, List<T> elementList) {
-        return (Integer.parseInt(elementId) <= 0) || (Integer.parseInt(elementId) > elementList.size());
-    }
-
-    private static boolean elementIdIsNumeric(String elementId) {
-        return elementId.matches("-?\\d+");
-    }
-
-    private boolean verifyElementNumber(String elementId, List<T> listToDelete) {
-        if (!elementIdIsNumeric(elementId)) {
-            System.out.println("I'm here");
-            return false;
-        }
-        return !checkElementIdIsOnList(elementId, listToDelete);
     }
 
     protected abstract T getCheckedOutElement(User user);
