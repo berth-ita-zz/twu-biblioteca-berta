@@ -1,5 +1,7 @@
 package com.twu.biblioteca.service;
 
+import com.twu.biblioteca.entity.User;
+
 public class BibliotecaService {
 
     private BookService bookService;
@@ -22,12 +24,12 @@ public class BibliotecaService {
         return bookService.getBooksList();
     }
 
-    public String printBooksList(String option){
-        return bookService.printBooksList(option);
+    public String printBooksList(){
+        return bookService.printBooksList();
     }
 
-    public String operationBook(String bookNumber, String option){
-        return bookService.operationBook(bookNumber, option);
+    public String operationBook(String bookNumber, String option, User user){
+        return bookService.operationBook(bookNumber, option, user);
     }
 
     public String getMoviesList() {

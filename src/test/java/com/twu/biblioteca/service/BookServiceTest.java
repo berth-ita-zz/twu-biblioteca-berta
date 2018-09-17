@@ -1,6 +1,7 @@
 package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.User;
 import com.twu.biblioteca.repository.BookRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +34,7 @@ public class BookServiceTest {
         BookService bookService = new BookService(bookRepository);
         List<Book> bookListMocked = getBooksList();
         Mockito.when(bookRepository.getBookList()).thenReturn(bookListMocked);
-        String bookList = bookService.printBooksList("2");
+        String bookList = bookService.printBooksList();
         assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-20s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
                 + String.format("%-2s. %-45s %-20s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
@@ -41,47 +42,37 @@ public class BookServiceTest {
     @Test
     public void checkOutBookOkTest() {
         BookService bookService = new BookService(bookRepository);
-        Mockito.when(bookRepository.deleteBookFromList("2")).thenReturn(true);
-        String bookRemoved = bookService.operationBook("2", "2");
-        Mockito.verify(bookRepository).deleteBookFromList("2");
+        Mockito.when(bookRepository.loggedUserCheckOutBook("2", new User())).thenReturn(true);
+        String bookRemoved = bookService.operationBook("2", "2", new User());
+        Mockito.verify(bookRepository).loggedUserCheckOutBook("2", new User());
         assertThat(bookRemoved).isEqualTo("Thank you! Enjoy the book");
     }
 
     @Test
     public void checkOutBookNotOkTest() {
         BookService bookService = new BookService(bookRepository);
-        Mockito.when(bookRepository.deleteBookFromList("25")).thenReturn(false);
-        String bookRemoved = bookService.operationBook("25", "2");
-        Mockito.verify(bookRepository).deleteBookFromList("25");
+        Mockito.when(bookRepository.loggedUserCheckOutBook("25", new User())).thenReturn(false);
+        String bookRemoved = bookService.operationBook("25", "2", new User());
+        Mockito.verify(bookRepository).loggedUserCheckOutBook("25", new User());
         assertThat(bookRemoved).isEqualTo("That book is not available");
-    }
-
-    @Test
-    public void selectMenuOptionReturnBookOkTest() {
-        BookService bookService = new BookService(bookRepository);
-        List<Book> bookListMocked = getBooksList();
-        Mockito.when(bookRepository.getReturnBookList()).thenReturn(bookListMocked);
-        String bookList = bookService.printBooksList("3");
-        assertThat(bookList).isEqualTo(String.format("%-2s. %-45s %-20s %-4s\n", "1", "The Hobbit", "J.R.R Tolkien", 1937)
-                + String.format("%-2s. %-45s %-20s %-4s\n","2","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
     }
 
     @Test
     public void returnBookOkTest() {
         BookService bookService = new BookService(bookRepository);
-        Mockito.when(bookRepository.returnBookFromList("1")).thenReturn(true);
-        String bookReturned = bookService.operationBook("1", "3");
-        Mockito.verify(bookRepository).returnBookFromList("1");
+        Mockito.when(bookRepository.loggedUserReturnBook(new User())).thenReturn(true);
+        String bookReturned = bookService.operationBook("1", "3", new User());
+        Mockito.verify(bookRepository).loggedUserReturnBook(new User());
         assertThat(bookReturned).isEqualTo("Thank you for returning the book");
     }
 
     @Test
     public void returnBookNotOkTest() {
         BookService bookService = new BookService(bookRepository);
-        Mockito.when(bookRepository.returnBookFromList("15")).thenReturn(false);
-        String bookReturned = bookService.operationBook("15", "3");
-        Mockito.verify(bookRepository).returnBookFromList("15");
-        assertThat(bookReturned).isEqualTo("This is not a valid book to return");
+        Mockito.when(bookRepository.loggedUserReturnBook(new User())).thenReturn(false);
+        String bookReturned = bookService.operationBook("15", "3", new User());
+        Mockito.verify(bookRepository).loggedUserReturnBook(new User());
+        assertThat(bookReturned).isEqualTo("You do not have any book to return");
     }
 
     private List<Book> getBooksList() {

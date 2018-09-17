@@ -1,5 +1,6 @@
 package com.twu.biblioteca.service;
 
+import com.twu.biblioteca.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -40,15 +41,16 @@ public class BibliotecaServiceTest {
     @Test
     public void printBooksListOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService);
-        bibliotecaService.printBooksList("2");
-        Mockito.verify(bookService).printBooksList("2");
+        bibliotecaService.printBooksList();
+        Mockito.verify(bookService).printBooksList();
     }
 
     @Test
     public void operationBookOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService);
-        bibliotecaService.operationBook("1", "2");
-        Mockito.verify(bookService).operationBook("1", "2");
+        User user = new User();
+        bibliotecaService.operationBook("1", "2", user);
+        Mockito.verify(bookService).operationBook("1", "2", user);
     }
 
     @Test

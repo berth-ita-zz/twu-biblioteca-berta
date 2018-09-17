@@ -2,6 +2,8 @@ package com.twu.biblioteca.entity;
 
 import com.twu.biblioteca.exception.InvalidLibraryNumberException;
 
+import java.util.Objects;
+
 public class User {
 
     private String libraryNumber;
@@ -34,4 +36,15 @@ public class User {
     public void setBookCheckedOut(Book bookCheckedOut) {
         this.bookCheckedOut = bookCheckedOut;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(libraryNumber, user.libraryNumber) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(bookCheckedOut, user.bookCheckedOut);
+    }
+
 }

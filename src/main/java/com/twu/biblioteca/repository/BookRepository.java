@@ -1,6 +1,8 @@
 package com.twu.biblioteca.repository;
 
+import com.sun.istack.internal.NotNull;
 import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.User;
 import com.twu.biblioteca.util.NumericUtils;
 
 import java.util.ArrayList;
@@ -35,20 +37,29 @@ public class BookRepository {
         return book;
     }
 
-    public Boolean deleteBookFromList(String bookNumber) {
-        return getListOperationResult(bookNumber, bookList, returnBookList);
+    public Boolean loggedUserCheckOutBook(String bookNumber, @NotNull User user) {
+        if(user.getBookCheckedOut() == null) {
+            if (verifyBookNumber(bookNumber, bookList)) return false;
+            user.setBookCheckedOut(bookList.get(Integer.parseInt(bookNumber) - 1));
+            bookList.remove(Integer.parseInt(bookNumber) - 1);
+            return true;
+        }
+        return false;
     }
 
-    public Boolean returnBookFromList(String bookNumber) {
-        return getListOperationResult(bookNumber, returnBookList, bookList);
+    public Boolean loggedUserReturnBook(@NotNull User user) {
+        if(user.getBookCheckedOut() != null) {
+            bookList.add(user.getBookCheckedOut());
+            user.setBookCheckedOut(null);
+            return true;
+        }
+        return false;
     }
 
-    private Boolean getListOperationResult(String bookNumber, List<Book> listToDelete, List<Book> listToAdd) {
-        if (!NumericUtils.numberIsNumeric(bookNumber)) return false;
-        if (NumericUtils.checkElementIsOnList(bookNumber, listToDelete.size())) return false;
-        listToAdd.add(listToDelete.get(Integer.parseInt(bookNumber) - 1));
-        listToDelete.remove(Integer.parseInt(bookNumber) - 1);
-        return true;
+    private boolean verifyBookNumber(String bookNumber, List<Book> listToDelete) {
+        if (!NumericUtils.numberIsNumeric(bookNumber)) return true;
+        if (NumericUtils.checkElementIsOnList(bookNumber, listToDelete.size())) return true;
+        return false;
     }
 
 }
