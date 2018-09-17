@@ -19,7 +19,7 @@ public class BibliotecaService {
     }
 
     public String getMainMenuMessageUserNotLogged() {
-        return "1 - List books\n2 - List movies\n3- Log in\n4 - Quit\n";
+        return "1 - List books\n2 - List movies\n3 - Log in\n4 - Quit\n";
     }
 
     public String getMainMenuMessageUserLogged() {
@@ -31,24 +31,24 @@ public class BibliotecaService {
         return bookService.getList();
     }
 
-    public String printBooksList(String option) {
-        return bookService.printList(option);
+    public String printBooksList() {
+        return bookService.printList();
     }
 
-    public String operationBook(String bookId, String option) {
-        return bookService.elementOperation(bookId, option);
+    public String operationBook(String bookId, String option, User user) {
+        return bookService.elementOperation(bookId, option, user);
     }
 
     public String getMoviesList() {
         return movieService.getList();
     }
 
-    public String printMoviesList(String option) {
-        return movieService.printList(option);
+    public String printMoviesList() {
+        return movieService.printList();
     }
 
-    public String operationMovie(String movieId, String option) {
-        return movieService.elementOperation(movieId, option);
+    public String operationMovie(String movieId, String option, User user) {
+        return movieService.elementOperation(movieId, option, user);
     }
 
     public User userLogIn(String libraryNumber, String password) {

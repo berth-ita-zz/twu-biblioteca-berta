@@ -68,19 +68,15 @@ public class BibliotecaApp {
             case "1":
                 return bibliotecaService.getBooksList();
             case "2":
-                return getBookOperation(option, NO_BOOKS_TO_CHECKOUT_RESPONSE, "Books available:",
-                        INVALID_CHECKOUT_BOOK_RESPONSE);
+                return getCheckOutBookOperation(option, user);
             case "3":
-                return getBookOperation(option, NO_BOOKS_TO_RETURN_RESPONSE, "Which book do you want to return? ",
-                        INVALID_RETURN_BOOK_RESPONSE);
+                return getReturnBookOperation(option, user);
             case "4":
                 return bibliotecaService.getMoviesList();
             case "5":
-                return getMovieOperation(option, NO_MOVIE_TO_CHECKOUT_RESPONSE, "Movies available:",
-                        INVALID_CHECKOUT_MOVIE_RESPONSE);
+                return getCheckOutMovieOperation(option, user);
             case "6":
-                return getMovieOperation(option, NO_MOVIE_TO_RETURN_RESPONSE, "Which movie do you want to return? ",
-                        INVALID_RETURN_MOVIE_RESPONSE);
+                return getReturnMovieOperation(option, user);
             case "7":
                 user = null;
                 return LOG_OUT_RESPONSE;
@@ -99,42 +95,48 @@ public class BibliotecaApp {
         return bibliotecaService.userLogIn(libraryNumber, password);
     }
 
-    private static String getBookOperation(String option, String noBooksToCheckoutResponse, String userMessage,
-                                           String invalidCheckoutResponse) throws IOException {
-        String booksAvailableToCheckOut = bibliotecaService.printBooksList(option);
-        if (booksAvailableToCheckOut.isEmpty()) {
-            return noBooksToCheckoutResponse;
+    private static String getCheckOutBookOperation(String option, User user) throws IOException {
+        String booksAvailable = bibliotecaService.printBooksList();
+        if (booksAvailable.isEmpty()) {
+            return NO_BOOKS_TO_CHECKOUT_RESPONSE;
         }
-        System.out.println(userMessage);
-        System.out.println(booksAvailableToCheckOut);
+        System.out.println("Books available: ");
+        System.out.println(booksAvailable);
         while (true) {
             System.out.print("Select an option introducing book number: ");
-            String bookToCheckOut = bufferedReader.readLine();
-            String bookCheckOutResult = bibliotecaService.operationBook(bookToCheckOut, option);
-            if (!bookCheckOutResult.equals(invalidCheckoutResponse)) {
-                return bookCheckOutResult;
+            String bookSelection = bufferedReader.readLine();
+            String bookResult = bibliotecaService.operationBook(bookSelection, option, user);
+            if (!bookResult.equals(INVALID_CHECKOUT_BOOK_RESPONSE)) {
+                return bookResult;
             }
-            System.out.println(bookCheckOutResult);
+            System.out.println(bookResult);
         }
     }
 
-    private static String getMovieOperation(String option, String noMoviesToCheckoutResponse, String userMessage,
-                                            String invalidCheckoutResponse) throws IOException {
-        String moviesAvailableToCheckOut = bibliotecaService.printMoviesList(option);
-        if (moviesAvailableToCheckOut.isEmpty()) {
-            return noMoviesToCheckoutResponse;
+    private static String getReturnBookOperation(String option, User user) {
+        return bibliotecaService.operationBook("", option, user);
+    }
+
+    private static String getCheckOutMovieOperation(String option, User user) throws IOException {
+        String moviesAvailable = bibliotecaService.printMoviesList();
+        if (moviesAvailable.isEmpty()) {
+            return NO_MOVIE_TO_CHECKOUT_RESPONSE;
         }
-        System.out.println(userMessage);
-        System.out.println(moviesAvailableToCheckOut);
+        System.out.println("Movies available: ");
+        System.out.println(moviesAvailable);
         while (true) {
             System.out.print("Select an option introducing movie number: ");
-            String movieToCheckOut = bufferedReader.readLine();
-            String movieCheckOutResult = bibliotecaService.operationMovie(movieToCheckOut, option);
-            if (!movieCheckOutResult.equals(invalidCheckoutResponse)) {
-                return movieCheckOutResult;
+            String movieSelection = bufferedReader.readLine();
+            String movieResult = bibliotecaService.operationMovie(movieSelection, option, user);
+            if (!movieResult.equals(INVALID_CHECKOUT_MOVIE_RESPONSE)) {
+                return movieResult;
             }
-            System.out.println(movieCheckOutResult);
+            System.out.println(movieResult);
         }
+    }
+
+    private static String getReturnMovieOperation(String option, User user) {
+        return bibliotecaService.operationMovie("", option, user);
     }
 
     private static void initializeApplication() {

@@ -1,9 +1,9 @@
 package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.entity.BibliotecaProduct;
+import com.twu.biblioteca.entity.User;
 import com.twu.biblioteca.repository.BibliotecaProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BibliotecaProductService<T extends BibliotecaProduct> {
@@ -19,14 +19,9 @@ public abstract class BibliotecaProductService<T extends BibliotecaProduct> {
         return elementListToPrint;
     }
 
-    public String printList(String option) {
-        List<T> elementList = new ArrayList<>();
-        if (option.equals(getCheckOutOption())) {
-            elementList = bibliotecaProductRepository.getList();
-        }
-        if (option.equals(getReturnOption())) {
-            elementList = bibliotecaProductRepository.getReturnList();
-        }
+    public String printList() {
+        List<T> elementList = bibliotecaProductRepository.getList();
+
         String elementListToPrint = "";
         for (T element : elementList) {
             elementListToPrint = elementListToPrint.concat(getElementWithFormatAndId(element));
@@ -34,14 +29,14 @@ public abstract class BibliotecaProductService<T extends BibliotecaProduct> {
         return elementListToPrint;
     }
 
-    public String elementOperation(String elementId, String option) {
+    public String elementOperation(String elementId, String option, User user) {
         if(option.equals(getCheckOutOption())) {
-            if (bibliotecaProductRepository.deleteFromList(elementId)) {
+            if (bibliotecaProductRepository.loggedUserCheckOutElement(elementId, user)) {
                 return "Thank you! Enjoy the " + getElementName();
             }
             return "That " + getElementName() + " is not available";
         }
-        if(bibliotecaProductRepository.returnFromList(elementId)) {
+        if(bibliotecaProductRepository.loggedUserReturnElement(user)) {
             return "Thank you for returning the " + getElementName();
         }
         return "This is not a valid " + getElementName() + " to return";
@@ -52,8 +47,6 @@ public abstract class BibliotecaProductService<T extends BibliotecaProduct> {
     protected abstract String getElementWithFormatAndId(T element);
 
     protected abstract String getCheckOutOption();
-
-    protected abstract String getReturnOption();
 
     protected abstract String getElementName();
 

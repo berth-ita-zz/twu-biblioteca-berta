@@ -36,7 +36,7 @@ public class BibliotecaServiceTest {
     public void printMainMenuUserNotLoggedOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         String mainMenuMessage = bibliotecaService.getMainMenuMessageUserNotLogged();
-        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - List movies\n3- Log in\n4 - Quit\n");
+        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - List movies\n3 - Log in\n4 - Quit\n");
     }
 
 }

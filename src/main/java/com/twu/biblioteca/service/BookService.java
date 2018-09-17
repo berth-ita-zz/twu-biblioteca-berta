@@ -27,11 +27,6 @@ public class BookService extends BibliotecaProductService<Book> {
     }
 
     @Override
-    protected String getReturnOption() {
-        return "3";
-    }
-
-    @Override
     protected String getElementName() {
         return "book";
     }

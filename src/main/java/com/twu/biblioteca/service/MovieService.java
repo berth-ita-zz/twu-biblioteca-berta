@@ -27,11 +27,6 @@ public class MovieService extends BibliotecaProductService<Movie> {
     }
 
     @Override
-    protected String getReturnOption() {
-        return "6";
-    }
-
-    @Override
     protected String getElementName() {
         return "movie";
     }
