@@ -30,7 +30,8 @@ public class BibliotecaServiceTest {
     public void printMainMenuOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         String mainMenuMessage = bibliotecaService.getMainMenuMessage();
-        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n6 - Quit\n");
+        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies" +
+                "\n5 - Check out movie\n6 - Profile\n7 - Quit");
     }
 
     @Test
@@ -81,6 +82,13 @@ public class BibliotecaServiceTest {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         bibliotecaService.userLogIn("123-4567", "password");
         Mockito.verify(userService).userLogIn("123-4567", "password");
+    }
+
+    @Test
+    public void userProfileInformationOkTest() {
+        BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
+        bibliotecaService.getUserProfile("123-4567", "password");
+        Mockito.verify(userService).getUserProfileInformation("123-4567", "password");
     }
 
 }

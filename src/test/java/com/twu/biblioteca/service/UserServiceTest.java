@@ -33,10 +33,24 @@ public class UserServiceTest {
         assertThat(user).isNull();
     }
 
+    @Test
+    public void userProfileInformationOkTest() {
+        UserService userService = new UserService(userRepository);
+        User userMocked = getUser();
+        Mockito.when(userRepository.getUserByUserPassword(userMocked.getLibraryNumber(), userMocked.getPassword())).thenReturn(userMocked);
+        String userData = userService.getUserProfileInformation(userMocked.getLibraryNumber(), userMocked.getPassword());
+        assertThat(userData).isEqualTo("Name: " + userMocked.getName() + "\nEmail: " + userMocked.getEmail() +
+                "\nAddress: " + userMocked.getAddress() + "\nPhone Number: " + userMocked.getPhoneNumber());
+    }
+
     private User getUser() {
         User user = new User();
         user.setLibraryNumber("123-4567");
         user.setPassword("password");
+        user.setName("User Name");
+        user.setEmail("userEmail@email.com");
+        user.setAddress("User Address");
+        user.setPhoneNumber(930001122);
         return user;
     }
 

@@ -19,7 +19,7 @@ public class BibliotecaService {
     }
 
     public String getMainMenuMessage() {
-        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n6 - Quit\n";
+        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n6 - Profile\n7 - Quit";
     }
 
     public String getBooksList() {
@@ -48,5 +48,9 @@ public class BibliotecaService {
 
     public User userLogIn(String libraryNumber, String password) {
         return userService.userLogIn(libraryNumber, password);
+    }
+
+    public String getUserProfile(String libraryNumber, String password) {
+        return userService.getUserProfileInformation(libraryNumber, password);
     }
 }
