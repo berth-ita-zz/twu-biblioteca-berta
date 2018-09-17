@@ -26,7 +26,8 @@ public class BibliotecaServiceTest {
     public void printMainMenuOkTest() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService);
         String mainMenuMessage = bibliotecaService.getMainMenuMessage();
-        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Quit\n");
+        assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n" +
+                "5 - Check out movie\n6 - Return movie\n7 - Quit\n");
     }
 
 }

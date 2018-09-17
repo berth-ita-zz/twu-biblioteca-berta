@@ -12,10 +12,14 @@ import java.io.InputStreamReader;
 
 public class BibliotecaApp {
 
-    private static final String INVALID_CHECKOUT_RESPONSE = "That book is not available";
-    private static final String INVALID_RETURN_RESPONSE = "This is not a valid book to return";
+    private static final String INVALID_CHECKOUT_BOOK_RESPONSE = "That book is not available";
+    private static final String INVALID_RETURN_BOOK_RESPONSE = "This is not a valid book to return";
     private static final String NO_BOOKS_TO_CHECKOUT_RESPONSE = "There are no books available to check out";
     private static final String NO_BOOKS_TO_RETURN_RESPONSE = "There are no books available to return";
+    private static final String INVALID_CHECKOUT_MOVIE_RESPONSE = "That movie is not available";
+    private static final String INVALID_RETURN_MOVIE_RESPONSE = "This is not a valid movie to return";
+    private static final String NO_MOVIE_TO_CHECKOUT_RESPONSE = "There are no movies available to check out";
+    private static final String NO_MOVIE_TO_RETURN_RESPONSE = "There are no movies available to return";
     static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     static BibliotecaService bibliotecaService;
 
@@ -45,13 +49,19 @@ public class BibliotecaApp {
                 return bibliotecaService.getBooksList();
             case "2":
                 return getBookOperation(option, NO_BOOKS_TO_CHECKOUT_RESPONSE, "Books available:",
-                        INVALID_CHECKOUT_RESPONSE);
+                        INVALID_CHECKOUT_BOOK_RESPONSE);
             case "3":
                 return getBookOperation(option, NO_BOOKS_TO_RETURN_RESPONSE, "Which book do you want to return? ",
-                        INVALID_RETURN_RESPONSE);
+                        INVALID_RETURN_BOOK_RESPONSE);
             case "4":
                 return bibliotecaService.getMoviesList();
             case "5":
+                return getMovieOperation(option, NO_MOVIE_TO_CHECKOUT_RESPONSE, "Movies available:",
+                        INVALID_CHECKOUT_MOVIE_RESPONSE);
+            case "6":
+                return getMovieOperation(option, NO_MOVIE_TO_RETURN_RESPONSE, "Which movie do you want to return? ",
+                        INVALID_RETURN_MOVIE_RESPONSE);
+            case "7":
                 return "Quit";
             default:
                 return "Select a valid option!\n";
@@ -74,6 +84,25 @@ public class BibliotecaApp {
                 return bookCheckOutResult;
             }
             System.out.println(bookCheckOutResult);
+        }
+    }
+
+    private static String getMovieOperation(String option, String noMoviesToCheckoutResponse, String userMessage,
+                                           String invalidCheckoutResponse) throws IOException {
+        String moviesAvailableToCheckOut = bibliotecaService.printMoviesList(option);
+        if (moviesAvailableToCheckOut.isEmpty()) {
+            return noMoviesToCheckoutResponse;
+        }
+        System.out.println(userMessage);
+        System.out.println(moviesAvailableToCheckOut);
+        while (true) {
+            System.out.print("Select an option introducing movie number: ");
+            String movieToCheckOut = bufferedReader.readLine();
+            String movieCheckOutResult = bibliotecaService.operationMovie(movieToCheckOut, option);
+            if (!movieCheckOutResult.equals(invalidCheckoutResponse)) {
+                return movieCheckOutResult;
+            }
+            System.out.println(movieCheckOutResult);
         }
     }
 

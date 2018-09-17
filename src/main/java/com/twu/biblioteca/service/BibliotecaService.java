@@ -15,7 +15,8 @@ public class BibliotecaService {
     }
 
     public String getMainMenuMessage() {
-        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Quit\n";
+        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n" +
+                "6 - Return movie\n7 - Quit\n";
     }
 
     public String getBooksList() {
@@ -32,6 +33,14 @@ public class BibliotecaService {
 
     public String getMoviesList() {
         return movieService.getList();
+    }
+
+    public String printMoviesList(String option) {
+        return movieService.printList(option);
+    }
+
+    public String operationMovie(String movieId, String option) {
+        return movieService.elementOperation(movieId, option);
     }
 
 }

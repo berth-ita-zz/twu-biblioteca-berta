@@ -16,22 +16,23 @@ public class MovieService extends BibliotecaProductService<Movie> {
     }
 
     @Override
-    protected String getElementWithFormatAndId(Movie element) {
-        return null;
+    protected String getElementWithFormatAndId(Movie movie) {
+        return String.format("%-4s %-30s %-4s %-15s %-1s\n", movie.getId(), movie.getTitle(),
+                movie.getYearPublished().toString(), movie.getAuthor(), movie.getRating().toString());
     }
 
     @Override
     protected String getCheckOutOption() {
-        return null;
+        return "5";
     }
 
     @Override
     protected String getReturnOption() {
-        return null;
+        return "6";
     }
 
     @Override
     protected String getElementName() {
-        return null;
+        return "movie";
     }
 }
