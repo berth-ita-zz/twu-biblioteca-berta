@@ -9,5 +9,6 @@ public class ConstantUtils {
     public static final String VALID_USER_RESPONSE = "Log in successful";
     public static final String INVALID_USER_RESPONSE = "This is not a valid user";
     public static final String LOG_OUT_RESPONSE = "Logged out";
+    public static final String ALREADY_CHECKOUT_ELEMENT_RESPONSE = "You have already checked out one, return it before check out a new one";
 
 }

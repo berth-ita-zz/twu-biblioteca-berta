@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.Movie;
 import com.twu.biblioteca.entity.User;
 import com.twu.biblioteca.service.BibliotecaService;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import java.io.BufferedReader;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,10 +40,23 @@ public class BibliotecaAppTest {
         assertThat(quit).isEqualTo("Quit");
     }
 
+
+    @Test
+    public void selectMenuOptionCheckOutUserAlreadyCheckOutABookOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
+        Book book = new Book();
+        BibliotecaApp.user.setBookCheckedOut(book);
+        String result = BibliotecaApp.selectMenuOptionUserLogged("2");
+        assertThat(result).isEqualTo("You have already checked out one, return it before check out a new one");
+    }
+
     @Test
     public void selectMenuOptionCheckOutBookEmptyListTest() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
         Mockito.when(bibliotecaService.printBooksList()).thenReturn("");
         String bookCheckOutResult = BibliotecaApp.selectMenuOptionUserLogged("2");
         Mockito.verify(bibliotecaService).printBooksList();
@@ -51,9 +67,10 @@ public class BibliotecaAppTest {
     public void selectMenuOptionCheckOutBookOkTest() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
         Mockito.when(bibliotecaService.printBooksList()).thenReturn("a");
         Mockito.when(bufferedReader.readLine()).thenReturn("1");
-        Mockito.when(bibliotecaService.operationBook("1", "2", null)).thenReturn("Thank you! Enjoy the book");
+        Mockito.when(bibliotecaService.operationBook("1", "2", BibliotecaApp.user)).thenReturn("Thank you! Enjoy the book");
         String bookCheckOutResult = BibliotecaApp.selectMenuOptionUserLogged("2");
         Mockito.verify(bibliotecaService).printBooksList();
         assertThat(bookCheckOutResult).isEqualTo("Thank you! Enjoy the book");
@@ -63,10 +80,11 @@ public class BibliotecaAppTest {
     public void selectMenuOptionCheckOutBookNotOkTest() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
         Mockito.when(bibliotecaService.printBooksList()).thenReturn("a");
         Mockito.when(bufferedReader.readLine()).thenReturn("7").thenReturn("1");
-        Mockito.when(bibliotecaService.operationBook("7", "2", null)).thenReturn("That book is not available");
-        Mockito.when(bibliotecaService.operationBook("1", "2", null)).thenReturn("Thank you! Enjoy the book");
+        Mockito.when(bibliotecaService.operationBook("7", "2", BibliotecaApp.user)).thenReturn("That book is not available");
+        Mockito.when(bibliotecaService.operationBook("1", "2", BibliotecaApp.user)).thenReturn("Thank you! Enjoy the book");
         String bookCheckOutResult = BibliotecaApp.selectMenuOptionUserLogged("2");
         Mockito.verify(bibliotecaService).printBooksList();
         assertThat(bookCheckOutResult).isEqualTo("Thank you! Enjoy the book");
@@ -80,9 +98,21 @@ public class BibliotecaAppTest {
     }
 
     @Test
+    public void selectMenuOptionCheckOutUserAlreadyCheckOutAMovieOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
+        Movie movie = new Movie();
+        BibliotecaApp.user.setMovieCheckedOut(movie);
+        String result = BibliotecaApp.selectMenuOptionUserLogged("5");
+        assertThat(result).isEqualTo("You have already checked out one, return it before check out a new one");
+    }
+
+    @Test
     public void selectMenuOptionCheckOutMovieEmptyListTest() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
         Mockito.when(bibliotecaService.printMoviesList()).thenReturn("");
         String movieCheckOutResult = BibliotecaApp.selectMenuOptionUserLogged("5");
         Mockito.verify(bibliotecaService).printMoviesList();
@@ -93,9 +123,10 @@ public class BibliotecaAppTest {
     public void selectMenuOptionCheckOutMoviesOkTest() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
         Mockito.when(bibliotecaService.printMoviesList()).thenReturn("a");
         Mockito.when(bufferedReader.readLine()).thenReturn("1");
-        Mockito.when(bibliotecaService.operationMovie("1", "5", null)).thenReturn("Thank you! Enjoy the movie");
+        Mockito.when(bibliotecaService.operationMovie("1", "5", BibliotecaApp.user)).thenReturn("Thank you! Enjoy the movie");
         String movieCheckOutResult = BibliotecaApp.selectMenuOptionUserLogged("5");
         Mockito.verify(bibliotecaService).printMoviesList();
         assertThat(movieCheckOutResult).isEqualTo("Thank you! Enjoy the movie");
@@ -105,10 +136,11 @@ public class BibliotecaAppTest {
     public void selectMenuOptionCheckOutMovieNotOkTest() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
+        BibliotecaApp.user = new User();
         Mockito.when(bibliotecaService.printMoviesList()).thenReturn("a");
         Mockito.when(bufferedReader.readLine()).thenReturn("7").thenReturn("1");
-        Mockito.when(bibliotecaService.operationMovie("7", "5", null)).thenReturn("That movie is not available");
-        Mockito.when(bibliotecaService.operationMovie("1", "5", null)).thenReturn("Thank you! Enjoy the movie");
+        Mockito.when(bibliotecaService.operationMovie("7", "5", BibliotecaApp.user)).thenReturn("That movie is not available");
+        Mockito.when(bibliotecaService.operationMovie("1", "5", BibliotecaApp.user)).thenReturn("Thank you! Enjoy the movie");
         String movieCheckOutResult = BibliotecaApp.selectMenuOptionUserLogged("5");
         Mockito.verify(bibliotecaService).printMoviesList();
         assertThat(movieCheckOutResult).isEqualTo("Thank you! Enjoy the movie");

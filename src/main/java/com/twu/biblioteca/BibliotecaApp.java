@@ -99,6 +99,9 @@ public class BibliotecaApp {
 
     private static String getCheckOutBookOperation(String option, User user) throws IOException {
         String booksAvailable = bibliotecaService.printBooksList();
+        if(user.getBookCheckedOut() != null) {
+            return ALREADY_CHECKOUT_ELEMENT_RESPONSE;
+        }
         if (booksAvailable.isEmpty()) {
             return NO_BOOKS_TO_CHECKOUT_RESPONSE;
         }
@@ -121,6 +124,9 @@ public class BibliotecaApp {
 
     private static String getCheckOutMovieOperation(String option, User user) throws IOException {
         String moviesAvailable = bibliotecaService.printMoviesList();
+        if(user.getMovieCheckedOut() != null) {
+            return ALREADY_CHECKOUT_ELEMENT_RESPONSE;
+        }
         if (moviesAvailable.isEmpty()) {
             return NO_MOVIE_TO_CHECKOUT_RESPONSE;
         }
