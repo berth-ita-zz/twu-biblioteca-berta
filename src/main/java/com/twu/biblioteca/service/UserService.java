@@ -15,4 +15,9 @@ public class UserService {
         return userRepository.getUserByUserPassword(libraryNumber, password);
     }
 
+    public String getUserProfileInformation(User user) {
+        return "Name: " + user.getName() + "\nEmail: " + user.getEmail() +
+                "\nAddress: " + user.getAddress() + "\nPhone Number: " + user.getPhoneNumber();
+    }
+
 }

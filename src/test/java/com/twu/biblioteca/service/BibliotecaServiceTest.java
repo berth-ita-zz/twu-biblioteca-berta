@@ -29,7 +29,7 @@ public class BibliotecaServiceTest {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         String mainMenuMessage = bibliotecaService.getMainMenuMessageUserLogged();
         assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n" +
-                "5 - Check out movie\n6 - Return movie\n7 - Log out\n8 - Quit\n");
+                "5 - Check out movie\n6 - Return movie\n7 - Profile information\n8 - Log out\n9 - Quit\n");
     }
 
     @Test

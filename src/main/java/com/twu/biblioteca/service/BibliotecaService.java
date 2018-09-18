@@ -24,7 +24,7 @@ public class BibliotecaService {
 
     public String getMainMenuMessageUserLogged() {
         return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n" +
-                "6 - Return movie\n7 - Log out\n8 - Quit\n";
+                "6 - Return movie\n7 - Profile information\n8 - Log out\n9 - Quit\n";
     }
 
     public String getBooksList() {
@@ -53,6 +53,10 @@ public class BibliotecaService {
 
     public User userLogIn(String libraryNumber, String password) {
         return userService.userLogIn(libraryNumber, password);
+    }
+
+    public String getUserProfile(User user) {
+        return userService.getUserProfileInformation(user);
     }
 
 }

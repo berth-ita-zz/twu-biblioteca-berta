@@ -24,4 +24,5 @@ public class UserRepositoryTest {
         User user = userRepository.getUserByUserPassword(libraryNumber, password);
         assertThat(user).isNull();
     }
+
 }

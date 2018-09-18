@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.entity.User;
 import com.twu.biblioteca.service.BibliotecaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import java.io.BufferedReader;
-
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,7 +33,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void selectMenuOptionQuitOkTest() throws Exception {
-        String quit = BibliotecaApp.selectMenuOptionUserLogged("8");
+        String quit = BibliotecaApp.selectMenuOptionUserLogged("9");
         assertThat(quit).isEqualTo("Quit");
     }
 
@@ -112,6 +112,46 @@ public class BibliotecaAppTest {
         String movieCheckOutResult = BibliotecaApp.selectMenuOptionUserLogged("5");
         Mockito.verify(bibliotecaService).printMoviesList();
         assertThat(movieCheckOutResult).isEqualTo("Thank you! Enjoy the movie");
+    }
+
+    @Test
+    public void logOutUserTestOk() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        String result =  BibliotecaApp.selectMenuOptionUserLogged("8");
+        assertThat(result).isEqualTo("Logged out");
+    }
+
+    @Test
+    public void logInUserTestOk() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        User user = new User();
+        Mockito.when(BibliotecaApp.logInUser()).thenReturn(user);
+        String result =  BibliotecaApp.selectMenuOptionUserNotLogged("3");
+        assertThat(result).isEqualTo("Log in successful");
+        BibliotecaApp.user = null;
+    }
+
+    @Test
+    public void logInUserTestNotOk() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        Mockito.when(bufferedReader.readLine()).thenReturn("3");
+        String result =  BibliotecaApp.selectMenuOptionUserNotLogged("3");
+        assertThat(result).isEqualTo("This is not a valid user");
+    }
+
+   @Test
+    public void userProfileOkTest() throws Exception {
+        BibliotecaApp.bibliotecaService = bibliotecaService;
+        BibliotecaApp.bufferedReader = bufferedReader;
+        User user = new User();
+        BibliotecaApp.user = user;
+        Mockito.when(bibliotecaService.getUserProfile(user)).thenReturn("ok test text");
+        String result = BibliotecaApp.selectMenuOptionUserLogged("7");
+        assertThat(result).isNotEmpty();
+        BibliotecaApp.user = null;
     }
 
 }

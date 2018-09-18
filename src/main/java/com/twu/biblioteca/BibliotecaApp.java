@@ -16,14 +16,14 @@ import static com.twu.biblioteca.util.ConstantUtils.*;
 
 public class BibliotecaApp {
 
-    private static User user;
+    static User user;
     static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     static BibliotecaService bibliotecaService;
 
     public static void main(String[] args) throws IOException {
         initializeApplication();
         System.out.println(bibliotecaService.getWelcomeMessage());
-        String menuOptionResult = "";
+        String menuOptionResult;
         while (true) {
             System.out.println("\nMenu");
             if (user != null) {
@@ -44,7 +44,7 @@ public class BibliotecaApp {
         }
     }
 
-    private static String selectMenuOptionUserNotLogged(String option) throws IOException {
+    public static String selectMenuOptionUserNotLogged(String option) throws IOException {
         switch (option) {
             case "1":
                 return bibliotecaService.getBooksList();
@@ -78,16 +78,18 @@ public class BibliotecaApp {
             case "6":
                 return getReturnMovieOperation(option, user);
             case "7":
+                return bibliotecaService.getUserProfile(user);
+            case "8":
                 user = null;
                 return LOG_OUT_RESPONSE;
-            case "8":
+            case "9":
                 return "Quit";
             default:
                 return "Select a valid option!\n";
         }
     }
 
-    private static User logInUser() throws IOException {
+    static User logInUser() throws IOException {
         System.out.println("Introduce your library number: ");
         String libraryNumber = bufferedReader.readLine();
         System.out.println("Introduce your password: ");
