@@ -22,27 +22,27 @@ public class BibliotecaAppTest {
     private BufferedReader bufferedReader;
 
     @Test
-    public void selectMenuOptionNotOkTest() throws Exception {
+    public void selectIncorrectMenuOption() throws Exception {
         String invalidOption = BibliotecaApp.selectMenuOptionUserLogged("a");
         assertThat(invalidOption).isEqualTo("Select a valid option!\n");
     }
 
     @Test
-    public void selectMenuOptionListBookOkTest() throws Exception {
+    public void selectMenuOptionToListBooks() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.selectMenuOptionUserLogged("1");
         Mockito.verify(bibliotecaService).getBooksList();
     }
 
     @Test
-    public void selectMenuOptionQuitOkTest() throws Exception {
+    public void selectMenuOptionToQuitApp() throws Exception {
         String quit = BibliotecaApp.selectMenuOptionUserLogged("9");
         assertThat(quit).isEqualTo("Quit");
     }
 
 
     @Test
-    public void selectMenuOptionCheckOutUserAlreadyCheckOutABookOkTest() throws Exception {
+    public void selectMenuOptionCheckOutUserAlreadyCheckOutABook() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -53,7 +53,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutBookEmptyListTest() throws Exception {
+    public void selectMenuOptionCheckOutBookEmptyList() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -64,7 +64,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutBookOkTest() throws Exception {
+    public void selectMenuOptionCheckOutBook() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -77,7 +77,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutBookNotOkTest() throws Exception {
+    public void selectMenuOptionCheckOutBookSelectingOneWrongAndCheckingCorrectAfter() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -91,14 +91,14 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void selectMenuOptionListMovieOkTest() throws Exception {
+    public void selectMenuOptionListMovie() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.selectMenuOptionUserLogged("4");
         Mockito.verify(bibliotecaService).getMoviesList();
     }
 
     @Test
-    public void selectMenuOptionCheckOutUserAlreadyCheckOutAMovieOkTest() throws Exception {
+    public void selectMenuOptionCheckOutUserAlreadyCheckOutAMovie() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -109,7 +109,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutMovieEmptyListTest() throws Exception {
+    public void selectMenuOptionCheckOutMovieEmptyList() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -120,7 +120,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutMoviesOkTest() throws Exception {
+    public void selectMenuOptionCheckOutMovies() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -133,7 +133,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutMovieNotOkTest() throws Exception {
+    public void selectMenuOptionCheckOutMovieSelectingOneWrongAndCheckingCorrectAfter() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         BibliotecaApp.user = new User();
@@ -147,7 +147,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void logOutUserTestOk() throws Exception {
+    public void logOutUser() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         String result =  BibliotecaApp.selectMenuOptionUserLogged("8");
@@ -155,7 +155,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void logInUserTestOk() throws Exception {
+    public void logInUserSuccessful() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         User user = new User();
@@ -166,7 +166,7 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void logInUserTestNotOk() throws Exception {
+    public void logInUserIncorrectData() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         Mockito.when(bufferedReader.readLine()).thenReturn("3");
@@ -175,7 +175,7 @@ public class BibliotecaAppTest {
     }
 
    @Test
-    public void userProfileOkTest() throws Exception {
+    public void userProfileInformationCorrect() throws Exception {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         User user = new User();

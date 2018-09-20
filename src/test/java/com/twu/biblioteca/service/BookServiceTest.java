@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +20,9 @@ public class BookServiceTest {
     private BookRepository bookRepository;
 
     @Test
-    public void selectMenuOptionListBookOkTest() {
+    public void selectMenuOptionToListAllBooksAvailable() {
         BookService bookService = new BookService(bookRepository);
-        List<Book> bookListMocked = getBooksList();
+        List<Book> bookListMocked = getBooksListMocked();
         Mockito.when(bookRepository.getList()).thenReturn(bookListMocked);
         String bookList = bookService.getList();
         assertThat(bookList).isEqualTo(String.format("%-45s %-20s %-4s\n", "The Hobbit", "J.R.R Tolkien", 1937)
@@ -31,9 +30,9 @@ public class BookServiceTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutBookOkTest() {
+    public void selectMenuOptionToCheckOutBookAndSeeListBooks() {
         BookService bookService = new BookService(bookRepository);
-        List<Book> bookListMocked = getBooksList();
+        List<Book> bookListMocked = getBooksListMocked();
         Mockito.when(bookRepository.getList()).thenReturn(bookListMocked);
         String bookList = bookService.printList();
         assertThat(bookList).isEqualTo(String.format("%-4s %-45s %-20s %-4s\n", "0001", "The Hobbit", "J.R.R Tolkien", 1937)
@@ -41,7 +40,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void checkOutBookOkTest() {
+    public void selectMenuOptionToCheckOutBookAndCheckItOut() {
         BookService bookService = new BookService(bookRepository);
         User user = new User();
         Mockito.when(bookRepository.loggedUserCheckOutElement("2", user)).thenReturn(true);
@@ -51,7 +50,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void checkOutBookNotOkTest() {
+    public void selectMenuOptionToCheckOutBookAndCheckAnIncorrectOneOut() {
         BookService bookService = new BookService(bookRepository);
         User user = new User();
         Mockito.when(bookRepository.loggedUserCheckOutElement("25", user)).thenReturn(false);
@@ -61,7 +60,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void returnBookOkTest() {
+    public void returnCheckedOutBookSuccessfully() {
         BookService bookService = new BookService(bookRepository);
         User user = new User();
         Mockito.when(bookRepository.loggedUserReturnElement(user)).thenReturn(true);
@@ -71,7 +70,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void returnBookNotOkTest() {
+    public void returnAnIncorrectBook() {
         BookService bookService = new BookService(bookRepository);
         User user = new User();
         Mockito.when(bookRepository.loggedUserReturnElement(user)).thenReturn(false);
@@ -80,7 +79,7 @@ public class BookServiceTest {
         assertThat(bookReturned).isEqualTo("This is not a valid book to return");
     }
 
-    private List<Book> getBooksList() {
+    private List<Book> getBooksListMocked() {
         List<Book> bookListMocked = new ArrayList<>();
         bookListMocked.add(getBook("0001","The Hobbit", "J.R.R Tolkien", 1937));
         bookListMocked.add(getBook("0002","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));

@@ -18,14 +18,14 @@ public class BibliotecaServiceTest {
     private UserService userService;
 
     @Test
-    public void printWelcomeMessageOkTest() {
+    public void printWelcomeMessage() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         String welcomeMessage = bibliotecaService.getWelcomeMessage();
         assertThat(welcomeMessage).isEqualTo("Welcome to La Biblioteca!");
     }
 
     @Test
-    public void printMainMenuUserLoggedOkTest() {
+    public void printMainMenuUserLogged() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         String mainMenuMessage = bibliotecaService.getMainMenuMessageUserLogged();
         assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n" +
@@ -33,7 +33,7 @@ public class BibliotecaServiceTest {
     }
 
     @Test
-    public void printMainMenuUserNotLoggedOkTest() {
+    public void printMainMenuUserNotLogged() {
         BibliotecaService bibliotecaService = new BibliotecaService(bookService, movieService, userService);
         String mainMenuMessage = bibliotecaService.getMainMenuMessageUserNotLogged();
         assertThat(mainMenuMessage).isEqualTo("1 - List books\n2 - List movies\n3 - Log in\n4 - Quit\n");

@@ -7,7 +7,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class UserRepositoryTest {
 
     @Test
-    public void getUserByUserPasswordOkTest() {
+    public void selectUserHavingLibraryNumberAndPassword() {
         UserRepository userRepository = new UserRepository();
         String libraryNumber = "123-4567";
         String password = "password";
@@ -17,7 +17,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void getUserByUserPasswordNotOkTest() {
+    public void selectUserHavingIncorrectLibraryNumberAndPassword() {
         UserRepository userRepository = new UserRepository();
         String libraryNumber = "100-4567";
         String password = "pass";

@@ -17,32 +17,32 @@ public class UserServiceTest {
     UserRepository userRepository;
 
     @Test
-    public void userLogInOkTest() {
+    public void userLogInSuccessful() {
         UserService userService = new UserService(userRepository);
-        User userMocked = getUser();
+        User userMocked = getUserMocked();
         Mockito.when(userRepository.getUserByUserPassword(userMocked.getLibraryNumber(), userMocked.getPassword())).thenReturn(userMocked);
         User user = userService.userLogIn(userMocked.getLibraryNumber(), userMocked.getPassword());
         assertThat(user).isEqualToComparingFieldByFieldRecursively(userMocked);
     }
 
     @Test
-    public void userLogInNotOkTest() {
+    public void userLogInFailure() {
         UserService userService = new UserService(userRepository);
-        User userMocked = getUser();
+        User userMocked = getUserMocked();
         User user = userService.userLogIn(userMocked.getLibraryNumber(), userMocked.getPassword());
         assertThat(user).isNull();
     }
 
     @Test
-    public void userProfileInformationOkTest() {
+    public void userProfileInformationCorrect() {
         UserService userService = new UserService(userRepository);
-        User userMocked = getUser();
+        User userMocked = getUserMocked();
         String userData = userService.getUserProfileInformation(userMocked);
         assertThat(userData).isEqualTo("Name: " + userMocked.getName() + "\nEmail: " + userMocked.getEmail() +
                 "\nAddress: " + userMocked.getAddress() + "\nPhone Number: " + userMocked.getPhoneNumber());
     }
 
-    private User getUser() {
+    private User getUserMocked() {
         User user = new User();
         user.setLibraryNumber("123-4567");
         user.setPassword("password");

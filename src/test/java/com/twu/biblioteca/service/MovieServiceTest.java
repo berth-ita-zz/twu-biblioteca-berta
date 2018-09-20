@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +20,9 @@ public class MovieServiceTest {
     private MovieRepository movieRepository;
 
     @Test
-    public void selectMenuOptionListMovieOkTest() {
+    public void selectMenuOptionToListAllMoviesAvailable() {
         MovieService movieService = new MovieService(movieRepository);
-        List<Movie> movieListMocked = getMoviesList();
+        List<Movie> movieListMocked = getMoviesListMocked();
         Mockito.when(movieRepository.getList()).thenReturn(movieListMocked);
         String movieList = movieService.getList();
         assertThat(movieList).isEqualTo(String.format("%-30s %-4s %-15s %-1s\n", "Beetlejuice", 1988, "Tim Burton", 7)
@@ -31,9 +30,9 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void selectMenuOptionCheckOutMovieOkTest() {
+    public void selectMenuOptionToCheckOutMovieAndSeeListMovies() {
         MovieService movieService = new MovieService(movieRepository);
-        List<Movie> movieListMocked = getMoviesList();
+        List<Movie> movieListMocked = getMoviesListMocked();
         Mockito.when(movieRepository.getList()).thenReturn(movieListMocked);
         String movieList = movieService.printList();
         assertThat(movieList).isEqualTo(String.format("%-4s %-30s %-4s %-15s %-1s\n", "1234", "Beetlejuice", 1988, "Tim Burton", 7)
@@ -41,7 +40,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void checkOutMovieOkTest() {
+    public void selectMenuOptionToCheckOutMovieAndCheckItOut() {
         MovieService movieService = new MovieService(movieRepository);
         User user = new User();
         Mockito.when(movieRepository.loggedUserCheckOutElement("5", user)).thenReturn(true);
@@ -51,7 +50,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void checkOutMovieNotOkTest() {
+    public void selectMenuOptionToCheckOutMovieAndCheckAnIncorrectOneOut() {
         MovieService movieService = new MovieService(movieRepository);
         User user = new User();
         Mockito.when(movieRepository.loggedUserCheckOutElement("25", user)).thenReturn(false);
@@ -61,7 +60,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void returnMovieOkTest() {
+    public void returnCheckedOutMovieSuccessfully() {
         MovieService movieService = new MovieService(movieRepository);
         User user = new User();
         Mockito.when(movieRepository.loggedUserReturnElement(user)).thenReturn(true);
@@ -71,7 +70,7 @@ public class MovieServiceTest {
     }
 
     @Test
-    public void returnMovieNotOkTest() {
+    public void returnAnIncorrectMovie() {
         MovieService movieService = new MovieService(movieRepository);
         User user = new User();
         Mockito.when(movieRepository.loggedUserReturnElement(user)).thenReturn(false);
@@ -80,7 +79,7 @@ public class MovieServiceTest {
         assertThat(movieReturned).isEqualTo("This is not a valid movie to return");
     }
 
-    private List<Movie> getMoviesList() {
+    private List<Movie> getMoviesListMocked() {
         List<Movie> movieListMocked = new ArrayList<>();
         movieListMocked.add(getMovie("1234","Beetlejuice", 1988, "Tim Burton", 7));
         movieListMocked.add(getMovie("0034", "The dark crystal", 1982, "Jim Henson", 7));

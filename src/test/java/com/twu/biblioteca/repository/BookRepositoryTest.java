@@ -3,57 +3,48 @@ package com.twu.biblioteca.repository;
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.User;
 import org.junit.Test;
-import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class BookRepositoryTest {
 
     @Test
-    public void getBookListOkTest() {
+    public void checkOutBookSuccessfully() {
         BookRepository bookRepository = new BookRepository();
-        List<Book> bookList = bookRepository.getList();
-        assertThat(bookList).hasSize(5);
+        Boolean bookCheckedOut = bookRepository.loggedUserCheckOutElement("0001", new User());
+        assertThat(bookCheckedOut).isTrue();
     }
 
     @Test
-    public void deleteBookFromListListSizeOkTest() {
+    public void checkOutBookWithIncorrectId() {
         BookRepository bookRepository = new BookRepository();
-        List<Book> bookList = bookRepository.getList();
-        bookRepository.loggedUserCheckOutElement("0012", new User());
-        assertThat(bookList).hasSize(4);
+        Boolean bookCheckedOut = bookRepository.loggedUserCheckOutElement("a", new User());
+        assertThat(bookCheckedOut).isFalse();
     }
 
     @Test
-    public void deleteBookFromListNotNumberTest() {
-        BookRepository bookRepository = new BookRepository();
-        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("a", new User());
-        assertThat(bookRemoved).isFalse();
-    }
-
-    @Test
-    public void deleteBookFromListUserWithBook() {
+    public void checkOutBookWhenUserAlreadyCheckedOutOne() {
         BookRepository bookRepository = new BookRepository();
         User user = new User();
         user.setBookCheckedOut(new Book());
-        Boolean bookRemoved = bookRepository.loggedUserCheckOutElement("1", user);
-        assertThat(bookRemoved).isFalse();
+        Boolean bookCheckedOut = bookRepository.loggedUserCheckOutElement("1", user);
+        assertThat(bookCheckedOut).isFalse();
     }
 
     @Test
-    public void returnBookOkTest() {
+    public void userReturnBookSuccessfully() {
         BookRepository bookRepository = new BookRepository();
         User user = new User();
         bookRepository.loggedUserCheckOutElement("0012", user);
-        Boolean bookRemoved = bookRepository.loggedUserReturnElement(user);
-        assertThat(bookRemoved).isTrue();
+        Boolean bookCheckedOut = bookRepository.loggedUserReturnElement(user);
+        assertThat(bookCheckedOut).isTrue();
     }
 
     @Test
-    public void returnBookNotOkTest() {
+    public void userReturnBookIncorrect() {
         BookRepository bookRepository = new BookRepository();
         User user = new User();
-        Boolean bookRemoved = bookRepository.loggedUserReturnElement(user);
-        assertThat(bookRemoved).isFalse();
+        Boolean bookCheckedOut = bookRepository.loggedUserReturnElement(user);
+        assertThat(bookCheckedOut).isFalse();
     }
 
 }
