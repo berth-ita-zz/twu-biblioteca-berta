@@ -31,5 +31,6 @@ public class ConstantUtils {
     public static final String BOOK_TXT = "book";
     public static final String MOVIE_OPTION = "5";
     public static final String MOVIE_TXT = "movie";
+    public static final String MENU_MSG = "\nMenu";
 
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import static com.twu.biblioteca.util.ConstantUtils.*;
+import static com.twu.biblioteca.util.Output.*;
 
 public class BibliotecaApp {
 
@@ -22,25 +23,25 @@ public class BibliotecaApp {
 
     public static void main(String[] args) throws IOException {
         initializeApplication();
-        System.out.println(bibliotecaService.getWelcomeMessage());
+        printMessageToUser(bibliotecaService.getWelcomeMessage());
         String menuOptionResult;
         while (true) {
-            System.out.println("\nMenu");
+            printMessageToUser(MENU_MSG);
             if (user != null) {
-                System.out.println(bibliotecaService.getMainMenuMessageUserLogged());
-                System.out.print(SELECT_OPTION_MSG);
+                printMessageToUser(bibliotecaService.getMainMenuMessageUserLogged());
+                printMessageToUser(SELECT_OPTION_MSG);
                 String option = bufferedReader.readLine();
                 menuOptionResult = selectMenuOptionUserLogged(option);
             } else {
-                System.out.println(bibliotecaService.getMainMenuMessageUserNotLogged());
-                System.out.print(SELECT_OPTION_MSG);
+                printMessageToUser(bibliotecaService.getMainMenuMessageUserNotLogged());
+                printMessageToUser(SELECT_OPTION_MSG);
                 String option = bufferedReader.readLine();
                 menuOptionResult = selectMenuOptionUserNotLogged(option);
             }
             if (menuOptionResult.equals(QUIT_MSG)) {
                 break;
             }
-            System.out.println(menuOptionResult);
+            printMessageToUser(menuOptionResult);
         }
     }
 
@@ -90,9 +91,9 @@ public class BibliotecaApp {
     }
 
     static User logInUser() throws IOException {
-        System.out.println(INTRODUCE_YOUR_LIBRARY_NUMBER_MSG);
+        printMessageToUser(INTRODUCE_YOUR_LIBRARY_NUMBER_MSG);
         String libraryNumber = bufferedReader.readLine();
-        System.out.println(INTRODUCE_YOUR_PASSWORD_MSG);
+        printMessageToUser(INTRODUCE_YOUR_PASSWORD_MSG);
         String password = bufferedReader.readLine();
         return bibliotecaService.userLogIn(libraryNumber, password);
     }
@@ -105,16 +106,16 @@ public class BibliotecaApp {
         if (booksAvailable.isEmpty()) {
             return NO_BOOKS_TO_CHECKOUT_RESPONSE;
         }
-        System.out.println(BOOKS_AVAILABLE_MSG);
-        System.out.println(booksAvailable);
+        printMessageToUser(BOOKS_AVAILABLE_MSG);
+        printMessageToUser(booksAvailable);
         while (true) {
-            System.out.print(SELECT_AN_OPTION_INTRODUCING_BOOK_NUMBER_MSG);
+            printMessageToUser(SELECT_AN_OPTION_INTRODUCING_BOOK_NUMBER_MSG);
             String bookSelection = bufferedReader.readLine();
             String bookResult = bibliotecaService.operationBook(bookSelection, option, user);
             if (!bookResult.equals(INVALID_CHECKOUT_BOOK_RESPONSE)) {
                 return bookResult;
             }
-            System.out.println(bookResult);
+            printMessageToUser(bookResult);
         }
     }
 
@@ -130,16 +131,16 @@ public class BibliotecaApp {
         if (moviesAvailable.isEmpty()) {
             return NO_MOVIE_TO_CHECKOUT_RESPONSE;
         }
-        System.out.println(MOVIES_AVAILABLE_MSG);
-        System.out.println(moviesAvailable);
+        printMessageToUser(MOVIES_AVAILABLE_MSG);
+        printMessageToUser(moviesAvailable);
         while (true) {
-            System.out.print(SELECT_AN_OPTION_INTRODUCING_MOVIE_NUMBER_MSG);
+            printMessageToUser(SELECT_AN_OPTION_INTRODUCING_MOVIE_NUMBER_MSG);
             String movieSelection = bufferedReader.readLine();
             String movieResult = bibliotecaService.operationMovie(movieSelection, option, user);
             if (!movieResult.equals(INVALID_CHECKOUT_MOVIE_RESPONSE)) {
                 return movieResult;
             }
-            System.out.println(movieResult);
+            printMessageToUser(movieResult);
         }
     }
 
