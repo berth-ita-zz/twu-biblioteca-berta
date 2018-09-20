@@ -28,16 +28,16 @@ public class BibliotecaApp {
             System.out.println("\nMenu");
             if (user != null) {
                 System.out.println(bibliotecaService.getMainMenuMessageUserLogged());
-                System.out.print("Select an option: ");
+                System.out.print(SELECT_OPTION_MSG);
                 String option = bufferedReader.readLine();
                 menuOptionResult = selectMenuOptionUserLogged(option);
             } else {
                 System.out.println(bibliotecaService.getMainMenuMessageUserNotLogged());
-                System.out.print("Select an option: ");
+                System.out.print(SELECT_OPTION_MSG);
                 String option = bufferedReader.readLine();
                 menuOptionResult = selectMenuOptionUserNotLogged(option);
             }
-            if (menuOptionResult.equals("Quit")) {
+            if (menuOptionResult.equals(QUIT_MSG)) {
                 break;
             }
             System.out.println(menuOptionResult);
@@ -57,9 +57,9 @@ public class BibliotecaApp {
                 }
                 return INVALID_USER_RESPONSE;
             case "4":
-                return "Quit";
+                return QUIT_MSG;
             default:
-                return "Select a valid option!\n";
+                return SELECT_A_VALID_OPTION_MSG;
         }
     }
 
@@ -83,16 +83,16 @@ public class BibliotecaApp {
                 user = null;
                 return LOG_OUT_RESPONSE;
             case "9":
-                return "Quit";
+                return QUIT_MSG;
             default:
-                return "Select a valid option!\n";
+                return SELECT_A_VALID_OPTION_MSG;
         }
     }
 
     static User logInUser() throws IOException {
-        System.out.println("Introduce your library number: ");
+        System.out.println(INTRODUCE_YOUR_LIBRARY_NUMBER_MSG);
         String libraryNumber = bufferedReader.readLine();
-        System.out.println("Introduce your password: ");
+        System.out.println(INTRODUCE_YOUR_PASSWORD_MSG);
         String password = bufferedReader.readLine();
         return bibliotecaService.userLogIn(libraryNumber, password);
     }
@@ -105,10 +105,10 @@ public class BibliotecaApp {
         if (booksAvailable.isEmpty()) {
             return NO_BOOKS_TO_CHECKOUT_RESPONSE;
         }
-        System.out.println("Books available: ");
+        System.out.println(BOOKS_AVAILABLE_MSG);
         System.out.println(booksAvailable);
         while (true) {
-            System.out.print("Select an option introducing book number: ");
+            System.out.print(SELECT_AN_OPTION_INTRODUCING_BOOK_NUMBER_MSG);
             String bookSelection = bufferedReader.readLine();
             String bookResult = bibliotecaService.operationBook(bookSelection, option, user);
             if (!bookResult.equals(INVALID_CHECKOUT_BOOK_RESPONSE)) {
@@ -130,10 +130,10 @@ public class BibliotecaApp {
         if (moviesAvailable.isEmpty()) {
             return NO_MOVIE_TO_CHECKOUT_RESPONSE;
         }
-        System.out.println("Movies available: ");
+        System.out.println(MOVIES_AVAILABLE_MSG);
         System.out.println(moviesAvailable);
         while (true) {
-            System.out.print("Select an option introducing movie number: ");
+            System.out.print(SELECT_AN_OPTION_INTRODUCING_MOVIE_NUMBER_MSG);
             String movieSelection = bufferedReader.readLine();
             String movieResult = bibliotecaService.operationMovie(movieSelection, option, user);
             if (!movieResult.equals(INVALID_CHECKOUT_MOVIE_RESPONSE)) {

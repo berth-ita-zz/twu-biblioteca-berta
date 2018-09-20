@@ -1,6 +1,7 @@
 package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.entity.User;
+import static com.twu.biblioteca.util.ConstantUtils.*;
 
 public class BibliotecaService {
 
@@ -15,16 +16,15 @@ public class BibliotecaService {
     }
 
     public String getWelcomeMessage() {
-        return "Welcome to La Biblioteca!";
+        return WELCOME_TO_LA_BIBLIOTECA_MSG;
     }
 
     public String getMainMenuMessageUserNotLogged() {
-        return "1 - List books\n2 - List movies\n3 - Log in\n4 - Quit\n";
+        return MENU_USER_NOT_LOGGED_MSG;
     }
 
     public String getMainMenuMessageUserLogged() {
-        return "1 - List books\n2 - Check out book\n3 - Return book\n4 - List movies\n5 - Check out movie\n" +
-                "6 - Return movie\n7 - Profile information\n8 - Log out\n9 - Quit\n";
+        return MENU_USER_LOGGED_MSG;
     }
 
     public String getBooksList() {

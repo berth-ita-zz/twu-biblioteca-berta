@@ -2,6 +2,7 @@ package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.repository.BookRepository;
+import static com.twu.biblioteca.util.ConstantUtils.*;
 
 public class BookService extends BibliotecaProductService<Book> {
 
@@ -11,24 +12,24 @@ public class BookService extends BibliotecaProductService<Book> {
 
     @Override
     protected String getElementWithFormat(Book book) {
-        return String.format("%-45s %-20s %-4s\n", book.getTitle(), book.getAuthor(),
+        return String.format(BOOK_LIST_WITHOUT_ID_REGEX, book.getTitle(), book.getAuthor(),
                 book.getYearPublished().toString());
     }
 
     @Override
     protected String getElementWithFormatAndId(Book book) {
-        return String.format("%-4s %-45s %-20s %-4s\n", book.getId(),
+        return String.format(BOOK_LIST_WITH_ID_REGEX, book.getId(),
                 book.getTitle(), book.getAuthor(), book.getYearPublished().toString());
     }
 
     @Override
     protected String getCheckOutOption() {
-        return "2";
+        return BOOK_OPTION;
     }
 
     @Override
     protected String getElementName() {
-        return "book";
+        return BOOK_TXT;
     }
 
 }
