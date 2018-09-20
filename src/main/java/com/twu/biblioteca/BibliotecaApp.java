@@ -90,7 +90,7 @@ public class BibliotecaApp {
         }
     }
 
-    static User logInUser() throws IOException {
+    private static User logInUser() throws IOException {
         printMessageToUser(INTRODUCE_YOUR_LIBRARY_NUMBER_MSG);
         String libraryNumber = bufferedReader.readLine();
         printMessageToUser(INTRODUCE_YOUR_PASSWORD_MSG);

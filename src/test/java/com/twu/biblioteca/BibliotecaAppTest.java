@@ -159,10 +159,10 @@ public class BibliotecaAppTest {
         BibliotecaApp.bibliotecaService = bibliotecaService;
         BibliotecaApp.bufferedReader = bufferedReader;
         User user = new User();
-        Mockito.when(BibliotecaApp.logInUser()).thenReturn(user);
-        String result =  BibliotecaApp.selectMenuOptionUserNotLogged("3");
-        assertThat(result).isEqualTo("Log in successful");
-        BibliotecaApp.user = null;
+        Mockito.when(bufferedReader.readLine()).thenReturn("123-4567").thenReturn("password");
+        Mockito.when(bibliotecaService.userLogIn("123-4567","password")).thenReturn(user);
+        BibliotecaApp.selectMenuOptionUserNotLogged("3");
+        Mockito.verify(bibliotecaService).userLogIn("123-4567", "password");
     }
 
     @Test
