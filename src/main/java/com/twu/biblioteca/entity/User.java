@@ -3,6 +3,7 @@ package com.twu.biblioteca.entity;
 import com.twu.biblioteca.exception.InvalidEmailException;
 import com.twu.biblioteca.exception.InvalidLibraryNumberException;
 import com.twu.biblioteca.exception.InvalidPhoneNumberException;
+import static com.twu.biblioteca.util.ConstantUtils.*;
 
 public class User {
 
@@ -20,7 +21,7 @@ public class User {
     }
 
     public void setLibraryNumber(String libraryNumber) {
-        if(!libraryNumber.matches("[\\w\\d]{3}-[\\w\\d]{4}")) {
+        if(!libraryNumber.matches(LIBRARY_NUMBER_FORMAT)) {
             throw new InvalidLibraryNumberException();
         }
         this.libraryNumber = libraryNumber;
@@ -63,7 +64,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        if(!email.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[Aa-z-Z]{2,6}$")) {
+        if(!email.matches(EMAIL_FORMAT)) {
             throw new InvalidEmailException();
         }
         this.email = email;
@@ -82,7 +83,7 @@ public class User {
     }
 
     public void setPhoneNumber(Integer phoneNumber) {
-        if(!phoneNumber.toString().matches("^([0-9]{9}$)")) {
+        if(!phoneNumber.toString().matches(PHONE_NUMBER_FORMAT)) {
             throw new InvalidPhoneNumberException();
         }
         this.phoneNumber = phoneNumber;

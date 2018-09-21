@@ -32,7 +32,11 @@ public class ConstantUtils {
     public static final String MOVIE_OPTION = "5";
     public static final String MOVIE_TXT = "movie";
     public static final String MENU_MSG = "\nMenu";
+    public static final String LIBRARY_NUMBER_FORMAT = "[\\w\\d]{3}-[\\w\\d]{4}";
+    public static final String EMAIL_FORMAT = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[Aa-z-Z]{2,6}$";
+    public static final String PHONE_NUMBER_FORMAT = "^([0-9]{9}$)";
     public static final String BOOK_FILE_NAME = "book.txt";
     public static final String MOVIE_FILE_NAME = "movie.txt";
+    public static final String USER_FILE_NAME = "user.txt";
 
 }

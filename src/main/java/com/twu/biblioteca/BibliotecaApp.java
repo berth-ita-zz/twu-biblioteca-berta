@@ -154,7 +154,7 @@ public class BibliotecaApp {
     private static void initializeApplication() throws Exception {
         BookRepository bookRepository = getBookRepository();
         MovieRepository movieRepository = getMovieRepository();
-        UserRepository userRepository = new UserRepository();
+        UserRepository userRepository = getUserRepository();
         BookService bookService = new BookService(bookRepository);
         MovieService movieService = new MovieService(movieRepository);
         UserService userService = new UserService(userRepository);
@@ -173,6 +173,13 @@ public class BibliotecaApp {
         MovieRepository movieRepository = new MovieRepository(fileReaderMovie);
         closeFileReader(fileReaderMovie);
         return movieRepository;
+    }
+
+    private static UserRepository getUserRepository() throws Exception {
+        FileReader fileReaderUser = getFileReader(USER_FILE_NAME);
+        UserRepository userRepository = new UserRepository(fileReaderUser);
+        closeFileReader(fileReaderUser);
+        return userRepository;
     }
 
     private static void closeFileReader(FileReader fileReader) throws Exception {
