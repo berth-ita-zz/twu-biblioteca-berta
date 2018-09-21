@@ -1,0 +1,5 @@
+1234;Beetlejuice;1988;Tim Burton;7
+0034;The dark crystal;1982;Jim Henson;7
+9756;Howl's Moving Castle;2004;Hayao Miyazaki;8
+8769;300;2007;Zack Snyder;8
+0147;Labytinth;1986;Jim Henson;8

@@ -2,15 +2,16 @@ package com.twu.biblioteca.repository;
 
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.User;
+import com.twu.biblioteca.util.FileReader;
 
 public class BookRepository extends BibliotecaProductRepository<Book> {
 
-    public BookRepository() {
-        availableList.add(getBook("0001","The Hobbit", "J.R.R Tolkien", 1937));
-        availableList.add(getBook("0002","The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979));
-        availableList.add(getBook("0012","The thief of Time", "Terry Pratchett", 2001));
-        availableList.add(getBook("1021","Hogsfather", "Terry Pratchett", 1996));
-        availableList.add(getBook("0987","Harry Potter and the Prisoner of Azkaban", "J.K. Rowling", 1999));
+    public BookRepository(FileReader fileReader) throws Exception {
+        String line;
+        while ((line = fileReader.readLine()) != null) {
+            String[] lineSplit = line.split(";");
+            availableList.add(getBook(lineSplit[0], lineSplit[1], lineSplit[2], Integer.valueOf(lineSplit[3])));
+        }
     }
 
     private Book getBook(String id, String title, String author, Integer yearPublished) {

@@ -2,15 +2,16 @@ package com.twu.biblioteca.repository;
 
 import com.twu.biblioteca.entity.Movie;
 import com.twu.biblioteca.entity.User;
+import com.twu.biblioteca.util.FileReader;
 
 public class MovieRepository extends BibliotecaProductRepository<Movie> {
 
-    public MovieRepository() {
-        availableList.add(getMovie("1234", "Beetlejuice", 1988, "Tim Burton", 7));
-        availableList.add(getMovie("0034", "The dark crystal", 1982, "Jim Henson", 7));
-        availableList.add(getMovie("9756", "Howl's Moving Castle", 2004, "Hayao Miyazak", 8));
-        availableList.add(getMovie("7800", "300", 2007, "Zack Snyder", 8));
-        availableList.add(getMovie("0147", "Labyrinth", 1986, "Jim Henson", 8));
+    public MovieRepository(FileReader fileReader) throws Exception {
+        String line;
+        while ((line = fileReader.readLine()) != null) {
+            String[] lineSplit = line.split(";");
+            availableList.add(getMovie(lineSplit[0], lineSplit[1], Integer.valueOf(lineSplit[2]), lineSplit[3], Integer.valueOf(lineSplit[4])));
+        }
     }
 
     private Movie getMovie(String id, String title, Integer year, String author, Integer rating) {

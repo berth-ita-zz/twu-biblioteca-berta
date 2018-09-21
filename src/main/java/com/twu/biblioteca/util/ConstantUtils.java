@@ -32,5 +32,7 @@ public class ConstantUtils {
     public static final String MOVIE_OPTION = "5";
     public static final String MOVIE_TXT = "movie";
     public static final String MENU_MSG = "\nMenu";
+    public static final String BOOK_FILE_NAME = "book.txt";
+    public static final String MOVIE_FILE_NAME = "movie.txt";
 
 }

@@ -8,9 +8,12 @@ import com.twu.biblioteca.service.BibliotecaService;
 import com.twu.biblioteca.service.BookService;
 import com.twu.biblioteca.service.MovieService;
 import com.twu.biblioteca.service.UserService;
+import com.twu.biblioteca.util.FileReader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 import static com.twu.biblioteca.util.ConstantUtils.*;
 import static com.twu.biblioteca.util.Output.*;
@@ -21,7 +24,7 @@ public class BibliotecaApp {
     static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     static BibliotecaService bibliotecaService;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         initializeApplication();
         printMessageToUser(bibliotecaService.getWelcomeMessage());
         String menuOptionResult;
@@ -148,14 +151,36 @@ public class BibliotecaApp {
         return bibliotecaService.operationMovie("", option, user);
     }
 
-    private static void initializeApplication() {
-        BookRepository bookRepository = new BookRepository();
-        MovieRepository movieRepository = new MovieRepository();
+    private static void initializeApplication() throws Exception {
+        BookRepository bookRepository = getBookRepository();
+        MovieRepository movieRepository = getMovieRepository();
         UserRepository userRepository = new UserRepository();
         BookService bookService = new BookService(bookRepository);
         MovieService movieService = new MovieService(movieRepository);
         UserService userService = new UserService(userRepository);
         bibliotecaService = new BibliotecaService(bookService, movieService, userService);
+    }
+
+    private static BookRepository getBookRepository() throws Exception {
+        FileReader fileReaderBook = getFileReader(BOOK_FILE_NAME);
+        BookRepository bookRepository = new BookRepository(fileReaderBook);
+        closeFileReader(fileReaderBook);
+        return bookRepository;
+    }
+
+    private static MovieRepository getMovieRepository() throws Exception {
+        FileReader fileReaderMovie = getFileReader(MOVIE_FILE_NAME);
+        MovieRepository movieRepository = new MovieRepository(fileReaderMovie);
+        closeFileReader(fileReaderMovie);
+        return movieRepository;
+    }
+
+    private static void closeFileReader(FileReader fileReader) throws Exception {
+        fileReader.close();
+    }
+
+    private static FileReader getFileReader(String fileName) throws Exception {
+        return new FileReader(Objects.requireNonNull(BibliotecaApp.class.getClassLoader().getResource(fileName)).getFile());
     }
 
 }
